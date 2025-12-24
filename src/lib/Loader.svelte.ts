@@ -5,21 +5,25 @@ type IconifyJSON = {
 
 // Cache for the bundle
 let bundleCache: Record<string, IconifyJSON> | null = null;
+let bundleLoadAttempted = false;
 
 export async function load(iconName: string) {
 	const [iconSet, name] = iconName.split(":", 2);
 	if (!iconSet || !name) return null;
 
-	// Load the bundle lazily on first use
-	if (!bundleCache) {
+	// Load the bundle lazily on first use (works in both dev and prod)
+	if (!bundleLoadAttempted) {
+		bundleLoadAttempted = true;
 		try {
 			// Use virtual module that's provided by the vite plugin
-			// This works in both dev and prod, and works across package boundaries
+			// The plugin should be configured in vite.config for this to work
 			//@ts-ignore
 			const mod = await import(/* @vite-ignore */ "virtual:iconify-bundle");
 			bundleCache = (mod as any).default ?? (mod as any);
 		} catch (e) {
-			console.error("Failed to load optimized icon bundle", e);
+			console.error(
+				"[sv-iconify] Icon bundle not found. Make sure you've added the svIconify() plugin to your vite.config.ts",
+			);
 			return null;
 		}
 	}
@@ -28,7 +32,7 @@ export async function load(iconName: string) {
 
 	const iconSetData = bundleCache[iconSet];
 	if (!iconSetData) {
-		console.warn(`Icon set "${iconSet}" not found in bundle`);
+		console.warn(`[sv-iconify] Icon set "${iconSet}" not found in bundle`);
 		return null;
 	}
 
