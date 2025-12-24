@@ -65,6 +65,14 @@ export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 		name: "vite-plugin-sv-iconify-static",
 		enforce: "pre",
 
+		config() {
+			return {
+				optimizeDeps: {
+					exclude: ["sv-iconify"],
+				},
+			};
+		},
+
 		configResolved(config) {
 			rootDir = config.root;
 		},

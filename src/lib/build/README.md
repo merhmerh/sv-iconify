@@ -44,10 +44,10 @@ During the build process:
 
 Just use icons normally in your code:
 
-\`\`\`svelte
+```svelte
 <Icon icon="lucide:apple" />
 <Icon icon="mdi:home" />
-\`\`\`
+```
 
 The build system automatically detects these references and optimizes the bundle.
 
@@ -55,10 +55,10 @@ The build system automatically detects these references and optimizes the bundle
 
 You can customize the plugin in `vite.config.ts`:
 
-\`\`\`typescript
+```typescript
 iconifyStatic({
-sourceDir: "src/lib/data/json", // Where full icon sets are stored
-outputPath: "src/lib/data/icons-bundle.json", // Where to write the bundle
-scanDir: "src", // Directory to scan for icon usage
-})
-\`\`\`
+	sourceDir: "src/lib/data/json", // Where full icon sets are stored
+	outputPath: "src/lib/data/icons-bundle.json", // Where to write the bundle
+	scanDir: "src", // Directory to scan for icon usage
+});
+```
