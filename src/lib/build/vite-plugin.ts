@@ -7,13 +7,13 @@ import { createOptimizedBundle } from "./bundle-generator.js";
 export interface IconifyStaticOptions {
 	/**
 	 * Directory containing the full icon set JSON files
-	 * @default "src/lib/data/json"
+	 * If not provided, will try to auto-detect from sv-iconify package
 	 */
 	sourceDir?: string;
 
 	/**
 	 * Output path for the optimized bundle
-	 * @default "src/lib/data/icons-bundle.json"
+	 * @default ".svelte-kit/sv-iconify/icons-bundle.json"
 	 */
 	outputPath?: string;
 
@@ -24,14 +24,40 @@ export interface IconifyStaticOptions {
 	scanDir?: string;
 }
 
+/**
+ * Try to locate the icon data directory from the sv-iconify package
+ */
+function findIconDataDir(rootDir: string): string | null {
+	// Try to resolve sv-iconify package
+	const possiblePaths = [
+		// In node_modules (published package)
+		path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
+		// Linked package pointing to dist
+		path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
+		// Linked package pointing to src
+		path.join(rootDir, "node_modules/sv-iconify/src/lib/data/json"),
+		// If running within sv-iconify itself
+		path.join(rootDir, "src/lib/data/json"),
+	];
+
+	for (const dir of possiblePaths) {
+		if (fs.existsSync(dir)) {
+			return dir;
+		}
+	}
+
+	return null;
+}
+
 export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 	const {
-		sourceDir = "src/lib/data/json",
-		outputPath = "src/lib/data/icons-bundle.json",
+		sourceDir: userSourceDir,
+		outputPath = ".svelte-kit/sv-iconify/icons-bundle.json",
 		scanDir = "src",
 	} = options;
 
 	let rootDir = "";
+	let bundleGenerated = false;
 	const VIRTUAL_MODULE_ID = "virtual:iconify-bundle";
 	const RESOLVED_VIRTUAL_MODULE_ID = "\0" + VIRTUAL_MODULE_ID;
 
@@ -49,16 +75,37 @@ export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 			}
 		},
 
-		load(id) {
+		async load(id) {
 			if (id === RESOLVED_VIRTUAL_MODULE_ID) {
 				const bundlePath = path.resolve(rootDir, outputPath);
 
-				// In dev mode, return empty bundle
-				if (process.env.NODE_ENV === "development") {
-					return "export default {}";
+				// Generate bundle if not already generated (for dev mode)
+				if (!bundleGenerated) {
+					console.log("\n🔍 Scanning for icon usage...");
+
+					const scanPath = path.resolve(rootDir, scanDir);
+					const iconReferences = await extractIconReferences(scanPath);
+
+					console.log(`   Found ${iconReferences.size} unique icon references`);
+
+					if (iconReferences.size > 0) {
+						const iconsGrouped = groupIconsBySet(iconReferences);
+
+						// Try to find icon data directory
+						const sourceDir = userSourceDir || findIconDataDir(rootDir);
+						if (!sourceDir) {
+							console.error(
+								"❌ Could not locate icon data directory. Please specify sourceDir option.",
+							);
+							return "export default {}";
+						}
+
+						createOptimizedBundle(iconsGrouped, sourceDir, bundlePath);
+						bundleGenerated = true;
+					}
 				}
 
-				// In production, check if bundle exists
+				// Load and return the bundle
 				if (fs.existsSync(bundlePath)) {
 					const bundle = fs.readFileSync(bundlePath, "utf-8");
 					return `export default ${bundle}`;
@@ -70,9 +117,9 @@ export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 		},
 
 		async buildStart() {
-			// Only run during build, not in dev mode
-			if (process.env.NODE_ENV === "development") {
-				return;
+			// Generate bundle for production build
+			if (bundleGenerated) {
+				return; // Already generated in load()
 			}
 
 			console.log("\n🔍 Scanning for icon usage...");
@@ -88,10 +135,19 @@ export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 			}
 
 			const iconsGrouped = groupIconsBySet(iconReferences);
-			const sourcePath = path.resolve(rootDir, sourceDir);
-			const outputFullPath = path.resolve(rootDir, outputPath);
 
-			createOptimizedBundle(iconsGrouped, sourcePath, outputFullPath);
+			// Try to find icon data directory
+			const sourceDir = userSourceDir || findIconDataDir(rootDir);
+			if (!sourceDir) {
+				console.error(
+					"❌ Could not locate icon data directory. Please specify sourceDir option.",
+				);
+				return;
+			}
+
+			const bundlePath = path.resolve(rootDir, outputPath);
+			createOptimizedBundle(iconsGrouped, sourceDir, bundlePath);
+			bundleGenerated = true;
 		},
 	};
 }
