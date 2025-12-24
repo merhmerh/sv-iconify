@@ -17,13 +17,16 @@ Add the Vite plugin to your `vite.config.ts`:
 ```typescript
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { iconifyStatic } from "sv-iconify";
+import { svIconify } from "sv-iconify/vite";
 
 export default defineConfig({
 	plugins: [
-		iconifyStatic(), // Add this plugin
+		svIconify(), // Add this plugin
 		sveltekit(),
 	],
+	optimizeDeps: {
+		exclude: ["sv-iconify"],
+	},
 });
 ```
 
@@ -81,6 +84,29 @@ import { Icon } from "sv-iconify";
 2. During build, the plugin scans your code for icon usage
 3. Only the icons you use are bundled into your final app
 4. Icons are inlined as a virtual module for optimal performance
+
+## Troubleshooting
+
+### Error: "Could not resolve 'virtual:iconify-bundle'"
+
+If you see this error during dependency optimization, make sure you have:
+
+1. Added the Vite plugin to your config (see Setup above)
+2. Added `sv-iconify` to `optimizeDeps.exclude` in your Vite config:
+
+```typescript
+export default defineConfig({
+	plugins: [
+		svIconify(),
+		sveltekit(),
+	],
+	optimizeDeps: {
+		exclude: ["sv-iconify"],
+	},
+});
+```
+
+This tells Vite not to pre-bundle `sv-iconify`, allowing the plugin to handle the virtual module properly.
 
 ## License
 
