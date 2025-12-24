@@ -24,7 +24,7 @@ export interface IconifyStaticOptions {
 	scanDir?: string;
 }
 
-export function iconifyStatic(options: IconifyStaticOptions = {}): Plugin {
+export function svIconify(options: IconifyStaticOptions = {}): Plugin {
 	const {
 		sourceDir = "src/lib/data/json",
 		outputPath = "src/lib/data/icons-bundle.json",

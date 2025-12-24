@@ -1,6 +1,7 @@
 {
 	"name": "sv-iconify",
 	"version": "0.0.1",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"prebuild": "bun run src/lib/build/runner.ts",
@@ -27,7 +28,12 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./vite": {
+			"types": "./dist/build/vite-plugin.d.ts",
+			"import": "./dist/build/vite-plugin.js"
 		}
 	},
 	"peerDependencies": {
