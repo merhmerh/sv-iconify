@@ -3,12 +3,8 @@
 	"singleQuote": false,
 	"printWidth": 100,
 	"tabWidth": 4,
-	"plugins": [
-		"prettier-plugin-svelte"
-	],
-	"pluginSearchDirs": [
-		"."
-	],
+	"plugins": ["prettier-plugin-svelte"],
+	"pluginSearchDirs": ["."],
 	"overrides": [
 		{
 			"files": "*.svelte",

@@ -1,8 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { extractIconReferences, groupIconsBySet } from "./icon-extractor.js";
-import { createOptimizedBundle } from "./bundle-generator.js";
-import { DEV } from "esm-env";
+import { createOptimizedBundle, extractIconReferences } from "./bundle-generator.js";
 
 /**
  * @typedef {Object} SvIconifyOptions
@@ -84,7 +82,9 @@ export function svIconify({
 
 			console.log("\n🔍 Scanning for icon usage...");
 			const scanPath = path.resolve(rootDir, scanDir);
-			const extractedIcons = await extractIconReferences(scanPath);
+			const sourceDir = userSourceDir || findIconDataDir(rootDir);
+
+			const extractedIcons = await extractIconReferences(scanPath, sourceDir);
 
 			const ref = {
 				iconSets: includes.iconSets,

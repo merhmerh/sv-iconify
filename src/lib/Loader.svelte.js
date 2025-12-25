@@ -62,25 +62,28 @@ export async function load(iconName) {
 	if (DEV) {
 		iconSetData = await loadIconSetFromFile(iconSet);
 		// Try to get the icon directly
+		const { width, height, top, left } = iconSetData;
+		const viewBox = `${top ?? 0} ${left ?? 0} ${width ?? 16} ${height ?? 16}`;
+
 		let svg = iconSetData.icons?.[name]?.body;
-		if (svg) return svg;
+		if (svg) return { svg, viewBox };
 
 		// Try to resolve alias
 		const alias = iconSetData.aliases?.[name]?.parent;
 		if (!alias) return null;
 
 		svg = iconSetData.icons?.[alias]?.body;
-		return svg ?? null;
+		return svg ? { svg, viewBox } : null;
 	} else {
 		// In prod mode, load from bundle
 		const bundle = await loadBundle();
 		if (!bundle) return null;
 
-		const svg = bundle[iconName];
+		const { svg, viewBox } = bundle[iconName];
 		if (!svg) {
 			console.warn(`[sv-iconify] Icon not found in bundle: ${iconName}`);
 			return null;
 		}
-		return svg;
+		return { svg, viewBox };
 	}
 }

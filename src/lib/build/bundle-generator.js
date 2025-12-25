@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
@@ -9,11 +10,16 @@ function checkPathExists(p) {
 	return true;
 }
 
-function getAllIconsFromSet(p) {
+function getAllIconsFromSet(p, iconset) {
 	const exists = checkPathExists(p);
-	if (!exists) return [];
+	if (!exists) {
+		console.log(`❌ Iconset not found for "${chalk.red(iconset)}"`);
+		return [];
+	}
 
 	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
+	const { width, height, top, left } = json;
+	const viewBox = `${top ?? 0} ${left ?? 0} ${width ?? 16} ${height ?? 16}`;
 	const iconsMap = {};
 	const aliasMap = new Map();
 	for (const [alias, { parent }] of Object.entries(json.aliases)) {
@@ -22,37 +28,48 @@ function getAllIconsFromSet(p) {
 	for (const [key, { body }] of Object.entries(json.icons)) {
 		if (aliasMap.has(key)) {
 			const k = aliasMap.get(key);
-			iconsMap[k] = body;
+			iconsMap[k] = { svg: body, viewBox };
 			continue;
 		}
-		iconsMap[key] = body;
+		iconsMap[key] = { svg: body, viewBox };
 	}
 	return iconsMap;
 }
 
 function getIcons(p, iconSet, iconNames) {
 	const exists = checkPathExists(p);
-	if (!exists) return [];
+	if (!exists) {
+		console.error(`❌ Iconset not found for "${chalk.red(iconSet)}"`);
+		return [];
+	}
 
 	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
 	// console.log(json.info.name); //iconName
+	const { top, left, width, height } = json;
+	const viewBox = `${top ?? 0} ${left ?? 0} ${width ?? 16} ${height ?? 16}`;
 	const iconsMap = {};
 	for (const name of iconNames) {
 		const key = `${iconSet}:${name}`;
 		const directSvg = json.icons?.[name]?.body;
 		if (directSvg) {
-			iconsMap[key] = directSvg;
+			iconsMap[key] = { svg: directSvg, viewBox };
 			continue;
 		}
 
 		// Try to resolve alias
 		const alias = json.aliases?.[name]?.parent;
-		if (!alias) continue;
+		if (!alias) {
+			console.error(`❌ Icon not found for "${chalk.red(key)}"`);
+			continue;
+		}
 
 		const aliasSvg = json.icons?.[alias]?.body;
-		if (!aliasSvg) continue;
+		if (!aliasSvg) {
+			console.error(`❌ Icon not found for "${chalk.red(key)}"`);
+			continue;
+		}
 
-		iconsMap[key] = aliasSvg;
+		iconsMap[key] = { svg: aliasSvg, viewBox };
 	}
 
 	return iconsMap;
@@ -71,7 +88,7 @@ export function createOptimizedBundle({ iconSets = [], icons = [] }, sourceDir, 
 		//get all iconSets first
 		for (const iconset of iconSets) {
 			const p = path.join(sourceDir, `${iconset}.json`);
-			const icons = getAllIconsFromSet(p);
+			const icons = getAllIconsFromSet(p, iconset);
 			Object.assign(bundledIcons, icons);
 		}
 	}
@@ -134,16 +151,18 @@ function findFiles(dir, extensions, ignored = []) {
 }
 
 /** Extracts icon references from source files */
-export async function extractIconReferences(srcDir) {
+export async function extractIconReferences(scanPath, sourceDir) {
 	const iconReferences = new Set();
+
+	const listOfValidIconset = fs.readdirSync(sourceDir).map((file) => file.replace(".json", ""));
 
 	// Pattern to match icon references in various formats
 	// Matches: "prefix:name", 'prefix:name', icon="prefix:name", icon='prefix:name'
-	const iconPattern = /["']([a-z0-9-]+:[a-z0-9-]+)["']/gi;
+	const iconPattern = /["`']([a-z0-9-]+:[a-z0-9-]+)["`']/gi;
 
 	// Find all .svelte, .ts, .js files
 	const files = findFiles(
-		srcDir,
+		scanPath,
 		[".svelte", ".ts", ".js"],
 		["node_modules", "dist", ".svelte-kit", "build"],
 	);
@@ -151,15 +170,18 @@ export async function extractIconReferences(srcDir) {
 	for (const file of files) {
 		const content = fs.readFileSync(file, "utf-8");
 		const matches = content.matchAll(iconPattern);
-
 		for (const match of matches) {
 			const iconRef = match[1];
 			// Validate format: prefix:name and exclude module imports like virtual:*
-			if (iconRef && iconRef.includes(":") && !iconRef.startsWith("virtual:")) {
+			const [iconset, name] = iconRef.split(":") || [];
+
+			if (iconset.startsWith("virtual")) continue;
+
+			if (iconset && listOfValidIconset.includes(iconset)) {
 				iconReferences.add(iconRef);
 			}
 		}
 	}
-
+	console.log(Array.from(iconReferences));
 	return Array.from(iconReferences);
 }

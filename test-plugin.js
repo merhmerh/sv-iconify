@@ -5,7 +5,6 @@
  * Simulates the plugin's buildStart hook without running the full Vite build
  */
 
-import chalk from "chalk";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createOptimizedBundle, extractIconReferences } from "./src/lib/build/bundle-generator.js";
@@ -20,7 +19,7 @@ const config = {
 	sourceDir: path.join(__dirname, "src/lib/data/json"),
 	outputPath: ".svelte-kit/sv-iconify/icons-bundle.json",
 	includes: {
-		iconSets: [],
+		iconSets: ["lucide"],
 		icons: ["lucide:home"],
 	},
 };
@@ -30,7 +29,7 @@ async function testPlugin() {
 
 	try {
 		const scanPath = path.resolve(config.rootDir, config.scanDir);
-		const extractedIcons = await extractIconReferences(scanPath);
+		const extractedIcons = await extractIconReferences(scanPath, config.sourceDir);
 		const ref = {
 			iconSets: config.includes.iconSets,
 			icons: [...new Set([...config.includes.icons, ...extractedIcons])],
