@@ -4,43 +4,27 @@ import { extractIconReferences, groupIconsBySet } from "./icon-extractor.js";
 import { createOptimizedBundle } from "./bundle-generator.js";
 import { DEV } from "esm-env";
 
-/** Try to locate the icon data directory from the sv-iconify package */
-function findIconDataDir(rootDir) {
-	// Try to resolve sv-iconify package
-	const possiblePaths = [
-		path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
-		// // Linked package pointing to src
-		path.join(rootDir, "node_modules/sv-iconify/src/lib/data/json"),
-		// // If running within sv-iconify itself
-		path.join(rootDir, "src/lib/data/json"),
-	];
-
-	for (const dir of possiblePaths) {
-		console.log(dir);
-		if (fs.existsSync(dir)) {
-			return dir;
-		}
-	}
-
-	return null;
-}
 /**
  * @typedef {Object} SvIconifyOptions
- * @property {string} [sourceDir]
- * @property {string} [outputPath]
- * @property {string} [scanDir]
+ * @property {string} [sourceDir] - Path to the directory containing icon JSON files. If not provided, will auto-detect from node_modules/sv-iconify
+ * @property {string} [outputPath='static/_sv-iconify/icons-bundle.json'] - Output path for the generated icon bundle (production builds only)
+ * @property {string} [scanDir='src'] - Directory to scan for icon usage in your source files
  */
 
 /**
- * @param {SvIconifyOptions} [options]
+ * Vite plugin for sv-iconify that optimizes icon loading by generating a bundle of only the icons used in your project
+ * @param {SvIconifyOptions} [options] - Configuration options for the plugin
+ * @returns {import('vite').Plugin} Vite plugin instance
  */
-export function svIconify(options = {}) {
-	const {
-		sourceDir: userSourceDir,
-		outputPath = "static/_sv-iconify/icons-bundle.json",
-		scanDir = "src",
-	} = options;
-
+export function svIconify({
+	sourceDir: userSourceDir,
+	outputPath = "static/_sv-iconify/icons-bundle.json",
+	scanDir = "src",
+	includes = {
+		iconSets: [],
+		icons: [],
+	},
+}) {
 	let rootDir = "";
 	let bundleGenerated = false;
 	let isProduction = false;
@@ -94,40 +78,39 @@ export function svIconify(options = {}) {
 
 		async buildStart() {
 			// Only generate bundle for production build
-			if (!isProduction) {
-				return;
-			}
+			if (!isProduction) return;
 
-			if (bundleGenerated) {
-				return; // Already generated
-			}
+			if (bundleGenerated) return; // Already generated
 
 			console.log("\n🔍 Scanning for icon usage...");
-
 			const scanPath = path.resolve(rootDir, scanDir);
-			const iconReferences = await extractIconReferences(scanPath);
+			const extractedIcons = await extractIconReferences(scanPath);
 
-			console.log(`   Found ${iconReferences.size} unique icon references`);
-
-			if (iconReferences.size === 0) {
-				console.log("⚠️  No icons found, skipping bundle generation");
-				return;
-			}
-
-			const iconsGrouped = groupIconsBySet(iconReferences);
-
-			// Try to find icon data directory
-			const sourceDir = userSourceDir || findIconDataDir(rootDir);
-			if (!sourceDir) {
-				console.error(
-					"❌ Could not locate icon data directory. Please specify sourceDir option.",
-				);
-				return;
-			}
+			const ref = {
+				iconSets: includes.iconSets,
+				icons: [...new Set([...includes.icons, ...extractedIcons])],
+			};
 
 			const bundlePath = path.resolve(rootDir, outputPath);
-			createOptimizedBundle(iconsGrouped, sourceDir, bundlePath);
+			createOptimizedBundle(ref, sourceDir, bundlePath);
 			bundleGenerated = true;
 		},
 	};
+}
+
+/** Try to locate the icon data directory from the sv-iconify package */
+function findIconDataDir(rootDir) {
+	const possiblePaths = [
+		path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
+		path.join(rootDir, "node_modules/sv-iconify/src/lib/data/json"),
+		path.join(rootDir, "src/lib/data/json"),
+	];
+
+	for (const dir of possiblePaths) {
+		if (fs.existsSync(dir)) {
+			return dir;
+		}
+	}
+
+	return null;
 }

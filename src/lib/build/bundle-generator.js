@@ -1,125 +1,165 @@
 import fs from "fs";
 import path from "path";
 
-/**
- * Loads an icon set JSON file and extracts only the specified icons
- */
-export function extractIconsFromSet(jsonPath, iconsToExtract) {
-	if (!fs.existsSync(jsonPath)) {
-		console.warn(`Icon set not found: ${jsonPath}`);
+function checkPathExists(p) {
+	if (!fs.existsSync(p)) {
+		console.warn(`Icon set not found: ${p}`);
 		return null;
 	}
-
-	const fullJson = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-
-	// If no specific icons requested, return empty
-	if (iconsToExtract.size === 0) {
-		return null;
-	}
-
-	const extractedJson = {
-		prefix: fullJson.prefix,
-		icons: {},
-		width: fullJson.width,
-		height: fullJson.height,
-	};
-
-	// Resolve aliases to get all actual icon names we need
-	const allNeededIcons = new Set();
-	const aliasMap = new Map();
-
-	for (const iconName of iconsToExtract) {
-		// Check if it's a direct icon
-		if (fullJson.icons?.[iconName]) {
-			allNeededIcons.add(iconName);
-		}
-		// Check if it's an alias
-		else if (fullJson.aliases?.[iconName]) {
-			const parent = fullJson.aliases[iconName].parent;
-			allNeededIcons.add(parent);
-			aliasMap.set(iconName, parent);
-		} else {
-			console.warn(`Icon not found in set: ${iconName}`);
-		}
-	}
-
-	// Extract the icons
-	if (fullJson.icons) {
-		for (const iconName of allNeededIcons) {
-			if (fullJson.icons[iconName]) {
-				if (!extractedJson.icons) extractedJson.icons = {};
-				extractedJson.icons[iconName] = fullJson.icons[iconName];
-			}
-		}
-	}
-
-	// Extract aliases if needed
-	if (aliasMap.size > 0) {
-		extractedJson.aliases = {};
-		for (const [alias, parent] of aliasMap) {
-			if (fullJson.aliases?.[alias]) {
-				extractedJson.aliases[alias] = fullJson.aliases[alias];
-			}
-		}
-	}
-
-	return extractedJson;
+	return true;
 }
 
-function getIcon(path, iconSet, iconNames) {
-	if (!fs.existsSync(path)) {
-		console.warn(`Icon set not found: ${path}`);
-		return null;
+function getAllIconsFromSet(p) {
+	const exists = checkPathExists(p);
+	if (!exists) return [];
+
+	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
+	const iconsMap = {};
+	const aliasMap = new Map();
+	for (const [alias, { parent }] of Object.entries(json.aliases)) {
+		aliasMap.set(parent, alias);
 	}
-	const fullJson = JSON.parse(fs.readFileSync(path, "utf-8"));
+	for (const [key, { body }] of Object.entries(json.icons)) {
+		if (aliasMap.has(key)) {
+			const k = aliasMap.get(key);
+			iconsMap[k] = body;
+			continue;
+		}
+		iconsMap[key] = body;
+	}
+	return iconsMap;
+}
 
-	if (iconNames.size === 0) return null;
+function getIcons(p, iconSet, iconNames) {
+	const exists = checkPathExists(p);
+	if (!exists) return [];
 
-	const icons = {};
-
+	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
+	// console.log(json.info.name); //iconName
+	const iconsMap = {};
 	for (const name of iconNames) {
 		const key = `${iconSet}:${name}`;
-		let svg = fullJson.icons?.[name]?.body;
-		if (svg) {
-			icons[key] = svg;
+		const directSvg = json.icons?.[name]?.body;
+		if (directSvg) {
+			iconsMap[key] = directSvg;
 			continue;
 		}
 
 		// Try to resolve alias
-		const alias = fullJson.aliases?.[name]?.parent;
-		if (!alias) return null;
+		const alias = json.aliases?.[name]?.parent;
+		if (!alias) continue;
 
-		svg = fullJson.icons?.[alias]?.body;
-		if (svg) {
-			icons[key] = svg;
-			continue;
-		}
+		const aliasSvg = json.icons?.[alias]?.body;
+		if (!aliasSvg) continue;
 
-		continue;
+		iconsMap[key] = aliasSvg;
 	}
 
-	return icons;
+	return iconsMap;
 }
 
-/**
- * Creates a bundled JSON file with only the icons used in the project
- */
-export function createOptimizedBundle(iconsGrouped, sourceDir, outputPath) {
+/** Creates a bundled JSON file with only the icons used in the project */
+export function createOptimizedBundle({ iconSets = [], icons = [] }, sourceDir, outputPath) {
 	const bundledIcons = {};
-	for (const [iconSet, iconNames] of Object.entries(iconsGrouped)) {
-		const jsonPath = path.join(sourceDir, `${iconSet}.json`);
 
-		const icons = getIcon(jsonPath, iconSet, iconNames);
-		if (icons) {
+	//get iconset first and filter icons that already included
+	if (iconSets.length > 0) {
+		icons = icons.filter((icon) => {
+			return !iconSets.some((set) => icon.startsWith(`${set}:`));
+		});
+
+		//get all iconSets first
+		for (const iconset of iconSets) {
+			const p = path.join(sourceDir, `${iconset}.json`);
+			const icons = getAllIconsFromSet(p);
 			Object.assign(bundledIcons, icons);
 		}
 	}
+
+	//then get individual icons
+	const iconsGrouped = {};
+	for (const iconName of icons) {
+		const [iconSet, name] = iconName.split(":");
+		if (!iconsGrouped[iconSet]) {
+			iconsGrouped[iconSet] = new Set();
+		}
+		iconsGrouped[iconSet].add(name);
+	}
+	for (const [iconSet, iconNamesSet] of Object.entries(iconsGrouped)) {
+		const iconNames = Array.from(iconNamesSet);
+		const p = path.join(sourceDir, `${iconSet}.json`);
+		const icons = getIcons(p, iconSet, iconNames);
+		Object.assign(bundledIcons, icons);
+	}
+
 	const outputDir = path.dirname(outputPath);
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 	fs.writeFileSync(outputPath, JSON.stringify(bundledIcons, null, 2), "utf-8");
 
-	console.log(`Created Bundle of ${Object.keys(bundledIcons).length} icons at ${outputPath}`);
+	console.log(`Created Bundle of ${Object.keys(bundledIcons).length} icons`);
 	return;
+}
+
+/** Recursively find all files matching extensions in a director  */
+function findFiles(dir, extensions, ignored = []) {
+	const results = [];
+
+	function walk(currentPath) {
+		const entries = fs.readdirSync(currentPath, { withFileTypes: true });
+
+		for (const entry of entries) {
+			const fullPath = path.join(currentPath, entry.name);
+			const relativePath = path.relative(dir, fullPath);
+
+			// Skip ignored directories
+			if (ignored.some((pattern) => relativePath.includes(pattern))) {
+				continue;
+			}
+
+			if (entry.isDirectory()) {
+				walk(fullPath);
+			} else if (entry.isFile()) {
+				const ext = path.extname(entry.name);
+				if (extensions.includes(ext)) {
+					results.push(fullPath);
+				}
+			}
+		}
+	}
+
+	walk(dir);
+	return results;
+}
+
+/** Extracts icon references from source files */
+export async function extractIconReferences(srcDir) {
+	const iconReferences = new Set();
+
+	// Pattern to match icon references in various formats
+	// Matches: "prefix:name", 'prefix:name', icon="prefix:name", icon='prefix:name'
+	const iconPattern = /["']([a-z0-9-]+:[a-z0-9-]+)["']/gi;
+
+	// Find all .svelte, .ts, .js files
+	const files = findFiles(
+		srcDir,
+		[".svelte", ".ts", ".js"],
+		["node_modules", "dist", ".svelte-kit", "build"],
+	);
+
+	for (const file of files) {
+		const content = fs.readFileSync(file, "utf-8");
+		const matches = content.matchAll(iconPattern);
+
+		for (const match of matches) {
+			const iconRef = match[1];
+			// Validate format: prefix:name and exclude module imports like virtual:*
+			if (iconRef && iconRef.includes(":") && !iconRef.startsWith("virtual:")) {
+				iconReferences.add(iconRef);
+			}
+		}
+	}
+
+	return Array.from(iconReferences);
 }

@@ -2,6 +2,8 @@
 
 A Svelte icon component library with static bundling support. Only bundles the icons you actually use in your app.
 
+# THIS PACKAGE IS WIP AND IS NOT READY FOR PRODUCTION USE YET.
+
 ## Installation
 
 ```bash

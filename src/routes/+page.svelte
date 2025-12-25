@@ -21,6 +21,7 @@ const icons = [
 			<Icon icon={iconName} width="32" />
 		{/each}
 		<Icon icon="jam:clock" width="32" />
+		<Icon icon="iconamoon:editt" />
 	</div>
 </main>
 
