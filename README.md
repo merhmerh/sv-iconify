@@ -9,7 +9,7 @@ Access all [Iconify](https://iconify.design/) icons in your SvelteKit project. O
 
 ## Limitations
 
-- Excludes all emojis iconsets from Iconify due to their large size.
+- Emojis iconsets is not available due to their large size.
 
 ## Installation
 

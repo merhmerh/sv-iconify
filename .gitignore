@@ -25,3 +25,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 /src/lib/data/icons-bundle.json
+/static/_sv-iconify*

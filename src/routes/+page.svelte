@@ -50,14 +50,14 @@ const showcaseIcons = [
 	"bi:battery",
 ];
 
-const iconSets = [
-	{ name: "Lucide", count: "1,200+", prefix: "lucide" },
-	{ name: "Material Design", count: "7,000+", prefix: "mdi" },
-	{ name: "Font Awesome", count: "2,000+", prefix: "fa6-solid" },
-	{ name: "Carbon", count: "2,400+", prefix: "carbon" },
-	{ name: "Tabler", count: "5,000+", prefix: "tabler" },
-	{ name: "Bootstrap", count: "2,000+", prefix: "bi" },
-];
+// const iconSets = [
+// 	{ name: "Lucide", count: "1,200+", prefix: "lucide" },
+// 	{ name: "Material Design", count: "7,000+", prefix: "mdi" },
+// 	{ name: "Font Awesome", count: "2,000+", prefix: "fa6-solid" },
+// 	{ name: "Carbon", count: "2,400+", prefix: "carbon" },
+// 	{ name: "Tabler", count: "5,000+", prefix: "tabler" },
+// 	{ name: "Bootstrap", count: "2,000+", prefix: "bi" },
+// ];
 </script>
 
 <svelte:head>
