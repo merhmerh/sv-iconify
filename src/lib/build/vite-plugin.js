@@ -22,7 +22,7 @@ export function svIconify({
 		iconSets: [],
 		icons: [],
 	},
-}) {
+} = {}) {
 	let rootDir = "";
 	let bundleGenerated = false;
 	let isProduction = false;
