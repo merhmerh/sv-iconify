@@ -4,10 +4,10 @@ import path from "path";
 /**
  * Recursively find all files matching extensions in a directory
  */
-function findFiles(dir: string, extensions: string[], ignored: string[] = []): string[] {
-	const results: string[] = [];
+function findFiles(dir, extensions, ignored = []) {
+	const results = [];
 
-	function walk(currentPath: string) {
+	function walk(currentPath) {
 		const entries = fs.readdirSync(currentPath, { withFileTypes: true });
 
 		for (const entry of entries) {
@@ -38,8 +38,8 @@ function findFiles(dir: string, extensions: string[], ignored: string[] = []): s
  * Extracts icon references from source files
  * Looks for patterns like: "lucide:apple", 'mdi:home', etc.
  */
-export async function extractIconReferences(srcDir: string): Promise<Set<string>> {
-	const iconReferences = new Set<string>();
+export async function extractIconReferences(srcDir) {
+	const iconReferences = new Set();
 
 	// Pattern to match icon references in various formats
 	// Matches: "prefix:name", 'prefix:name', icon="prefix:name", icon='prefix:name'
@@ -73,8 +73,8 @@ export async function extractIconReferences(srcDir: string): Promise<Set<string>
  * Input: ["lucide:apple", "lucide:activity", "mdi:home"]
  * Output: { lucide: ["apple", "activity"], mdi: ["home"] }
  */
-export function groupIconsBySet(iconReferences: Set<string>): Record<string, Set<string>> {
-	const grouped: Record<string, Set<string>> = {};
+export function groupIconsBySet(iconReferences) {
+	const grouped = {};
 
 	for (const iconRef of iconReferences) {
 		const [iconSet, iconName] = iconRef.split(":", 2);

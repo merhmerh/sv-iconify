@@ -9,8 +9,7 @@ const icons = [
 	"lucide:align-center",
 	"lucide:anchor",
 	"lucide:archive",
-	"lucide:arrow-down-circle",
-	"lucide:arrow-up-circle",
+	"tabler:abc",
 ];
 </script>
 
@@ -19,8 +18,9 @@ const icons = [
 
 	<div class="container">
 		{#each icons as iconName}
-			<Icon icon={iconName} width="20" />
+			<Icon icon={iconName} width="32" />
 		{/each}
+		<Icon icon="tabler:alarm-plus" width="32" />
 	</div>
 </main>
 

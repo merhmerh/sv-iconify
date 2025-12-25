@@ -1,5 +1,6 @@
 <script lang="ts">
-import { load } from "./Loader.svelte.ts";
+import { onMount } from "svelte";
+import { load } from "./Loader.svelte.js";
 
 let {
 	icon = undefined as string | undefined,
@@ -90,7 +91,6 @@ async function fetchIcon() {
 	if (strokeWidth) {
 		svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${strokeWidth}"`);
 	}
-	console.log(svg);
 }
 </script>
 

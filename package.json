@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
-		"prebuild": "bun run src/lib/build/runner.ts",
+		"prebuild": "node src/lib/build/runner.js",
 		"build": "vite build && npm run prepack",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -12,7 +12,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"test:plugin": "node test-plugin.js"
 	},
 	"files": [
 		"dist",

@@ -1,47 +1,23 @@
 import fs from "fs";
 import path from "path";
 
-type IconifyJSON = {
-	prefix?: string;
-	icons?: Record<
-		string,
-		{
-			body: string;
-			width?: number;
-			height?: number;
-			left?: number;
-			top?: number;
-			rotate?: number;
-			hFlip?: boolean;
-			vFlip?: boolean;
-		}
-	>;
-	aliases?: Record<string, { parent: string; [key: string]: any }>;
-	width?: number;
-	height?: number;
-	[key: string]: any;
-};
-
 /**
  * Loads an icon set JSON file and extracts only the specified icons
  */
-export function extractIconsFromSet(
-	jsonPath: string,
-	iconsToExtract: Set<string>,
-): IconifyJSON | null {
+export function extractIconsFromSet(jsonPath, iconsToExtract) {
 	if (!fs.existsSync(jsonPath)) {
 		console.warn(`Icon set not found: ${jsonPath}`);
 		return null;
 	}
 
-	const fullJson: IconifyJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+	const fullJson = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 
 	// If no specific icons requested, return empty
 	if (iconsToExtract.size === 0) {
 		return null;
 	}
 
-	const extractedJson: IconifyJSON = {
+	const extractedJson = {
 		prefix: fullJson.prefix,
 		icons: {},
 		width: fullJson.width,
@@ -49,8 +25,8 @@ export function extractIconsFromSet(
 	};
 
 	// Resolve aliases to get all actual icon names we need
-	const allNeededIcons = new Set<string>();
-	const aliasMap = new Map<string, string>();
+	const allNeededIcons = new Set();
+	const aliasMap = new Map();
 
 	for (const iconName of iconsToExtract) {
 		// Check if it's a direct icon
@@ -93,12 +69,8 @@ export function extractIconsFromSet(
 /**
  * Creates a bundled JSON file with only the icons used in the project
  */
-export function createOptimizedBundle(
-	iconsGrouped: Record<string, Set<string>>,
-	sourceDir: string,
-	outputPath: string,
-): void {
-	const bundledIcons: Record<string, IconifyJSON> = {};
+export function createOptimizedBundle(iconsGrouped, sourceDir, outputPath) {
+	const bundledIcons = {};
 
 	for (const [iconSet, iconNames] of Object.entries(iconsGrouped)) {
 		const jsonPath = path.join(sourceDir, `${iconSet}.json`);
@@ -108,6 +80,7 @@ export function createOptimizedBundle(
 			bundledIcons[iconSet] = extracted;
 		}
 	}
+	console.log(bundledIcons);
 
 	// Ensure output directory exists
 	const outputDir = path.dirname(outputPath);
