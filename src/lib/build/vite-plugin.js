@@ -4,22 +4,19 @@ import { extractIconReferences, groupIconsBySet } from "./icon-extractor.js";
 import { createOptimizedBundle } from "./bundle-generator.js";
 import { DEV } from "esm-env";
 
-/**
- * Try to locate the icon data directory from the sv-iconify package
- */
+/** Try to locate the icon data directory from the sv-iconify package */
 function findIconDataDir(rootDir) {
 	// Try to resolve sv-iconify package
 	const possiblePaths = [
 		path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
-		// // Linked package pointing to dist
-		// path.join(rootDir, "node_modules/sv-iconify/dist/data/json"),
 		// // Linked package pointing to src
-		// path.join(rootDir, "node_modules/sv-iconify/src/lib/data/json"),
+		path.join(rootDir, "node_modules/sv-iconify/src/lib/data/json"),
 		// // If running within sv-iconify itself
-		// path.join(rootDir, "src/lib/data/json"),
+		path.join(rootDir, "src/lib/data/json"),
 	];
 
 	for (const dir of possiblePaths) {
+		console.log(dir);
 		if (fs.existsSync(dir)) {
 			return dir;
 		}
@@ -27,11 +24,20 @@ function findIconDataDir(rootDir) {
 
 	return null;
 }
+/**
+ * @typedef {Object} SvIconifyOptions
+ * @property {string} [sourceDir]
+ * @property {string} [outputPath]
+ * @property {string} [scanDir]
+ */
 
+/**
+ * @param {SvIconifyOptions} [options]
+ */
 export function svIconify(options = {}) {
 	const {
 		sourceDir: userSourceDir,
-		outputPath = ".svelte-kit/sv-iconify/icons-bundle.json",
+		outputPath = "static/_sv-iconify/icons-bundle.json",
 		scanDir = "src",
 	} = options;
 
@@ -43,7 +49,7 @@ export function svIconify(options = {}) {
 
 	return {
 		name: "vite-plugin-sv-iconify-static",
-		enforce: "pre",
+		enforce: /** @type {"pre"} */ ("pre"),
 
 		config(config, { command }) {
 			// Detect if this is a build command

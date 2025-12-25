@@ -58,8 +58,8 @@ export async function extractIconReferences(srcDir) {
 
 		for (const match of matches) {
 			const iconRef = match[1];
-			// Validate format: prefix:name
-			if (iconRef && iconRef.includes(":")) {
+			// Validate format: prefix:name and exclude module imports like virtual:*
+			if (iconRef && iconRef.includes(":") && !iconRef.startsWith("virtual:")) {
 				iconReferences.add(iconRef);
 			}
 		}

@@ -42,21 +42,9 @@ async function testPlugin() {
 			return;
 		}
 
-		// Display found icons
-		console.log("\n📋 Icon references found:");
-		const icons = Array.from(iconReferences).sort();
-		for (const icon of icons) {
-			console.log(`   - ${icon}`);
-		}
-
 		// Step 2: Group icons by set
 		console.log("\n📦 Step 2: Grouping icons by set...");
 		const iconsGrouped = groupIconsBySet(iconReferences);
-
-		console.log(`   Grouped into ${Object.keys(iconsGrouped).length} icon sets`);
-		for (const [setName, icons] of Object.entries(iconsGrouped)) {
-			console.log(`   - ${setName}: ${icons.size} icons`);
-		}
 
 		// Step 3: Create optimized bundle
 		console.log("\n🎁 Step 3: Creating optimized bundle...");

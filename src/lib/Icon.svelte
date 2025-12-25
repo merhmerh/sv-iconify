@@ -1,5 +1,4 @@
 <script lang="ts">
-import { onMount } from "svelte";
 import { load } from "./Loader.svelte.js";
 
 let {
@@ -79,19 +78,18 @@ function smartConvertUnit(value: string | number | undefined) {
 }
 
 $effect(() => {
-	if (icon) {
-		fetchIcon();
+	const currentIcon = icon;
+	if (currentIcon) {
+		load(currentIcon).then((result) => {
+			svg = result ?? "";
+			if (strokeWidth) {
+				svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${strokeWidth}"`);
+			}
+		});
+	} else {
+		svg = "";
 	}
 });
-
-async function fetchIcon() {
-	if (!icon) return (svg = "");
-	const result = await load(icon);
-	svg = result ?? "";
-	if (strokeWidth) {
-		svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${strokeWidth}"`);
-	}
-}
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style={styles}>

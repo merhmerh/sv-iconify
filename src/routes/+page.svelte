@@ -20,7 +20,7 @@ const icons = [
 		{#each icons as iconName}
 			<Icon icon={iconName} width="32" />
 		{/each}
-		<Icon icon="tabler:alarm-plus" width="32" />
+		<Icon icon="jam:clock" width="32" />
 	</div>
 </main>
 

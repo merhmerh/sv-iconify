@@ -66,37 +66,60 @@ export function extractIconsFromSet(jsonPath, iconsToExtract) {
 	return extractedJson;
 }
 
+function getIcon(path, iconSet, iconNames) {
+	if (!fs.existsSync(path)) {
+		console.warn(`Icon set not found: ${path}`);
+		return null;
+	}
+	const fullJson = JSON.parse(fs.readFileSync(path, "utf-8"));
+
+	if (iconNames.size === 0) return null;
+
+	const icons = {};
+
+	for (const name of iconNames) {
+		const key = `${iconSet}:${name}`;
+		let svg = fullJson.icons?.[name]?.body;
+		if (svg) {
+			icons[key] = svg;
+			continue;
+		}
+
+		// Try to resolve alias
+		const alias = fullJson.aliases?.[name]?.parent;
+		if (!alias) return null;
+
+		svg = fullJson.icons?.[alias]?.body;
+		if (svg) {
+			icons[key] = svg;
+			continue;
+		}
+
+		continue;
+	}
+
+	return icons;
+}
+
 /**
  * Creates a bundled JSON file with only the icons used in the project
  */
 export function createOptimizedBundle(iconsGrouped, sourceDir, outputPath) {
 	const bundledIcons = {};
-
 	for (const [iconSet, iconNames] of Object.entries(iconsGrouped)) {
 		const jsonPath = path.join(sourceDir, `${iconSet}.json`);
-		const extracted = extractIconsFromSet(jsonPath, iconNames);
 
-		if (extracted && extracted.icons && Object.keys(extracted.icons).length > 0) {
-			bundledIcons[iconSet] = extracted;
+		const icons = getIcon(jsonPath, iconSet, iconNames);
+		if (icons) {
+			Object.assign(bundledIcons, icons);
 		}
 	}
-	console.log(bundledIcons);
-
-	// Ensure output directory exists
 	const outputDir = path.dirname(outputPath);
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
-
-	// Write the bundled icons
 	fs.writeFileSync(outputPath, JSON.stringify(bundledIcons, null, 2), "utf-8");
 
-	// Log statistics
-	const totalIcons = Object.values(bundledIcons).reduce(
-		(sum, set) => sum + (set.icons ? Object.keys(set.icons).length : 0),
-		0,
-	);
-	console.log(
-		`✓ Created optimized icon bundle: ${Object.keys(bundledIcons).length} sets, ${totalIcons} icons`,
-	);
+	console.log(`Created Bundle of ${Object.keys(bundledIcons).length} icons at ${outputPath}`);
+	return;
 }
