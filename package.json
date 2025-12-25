@@ -34,7 +34,6 @@
 			"default": "./dist/index.js"
 		},
 		"./vite": {
-			"types": "./dist/build/vite-plugin.d.ts",
 			"import": "./dist/build/vite-plugin.js"
 		}
 	},
