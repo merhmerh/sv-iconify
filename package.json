@@ -1,6 +1,6 @@
 {
 	"name": "sv-iconify",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"license": "MIT",
 	"description": "A Tree-shakeable Iconify component for Svelte",
 	"author": "merhmerh",
