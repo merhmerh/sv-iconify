@@ -1,3 +1,7 @@
+<script>
+import Icon from "$lib/Icon.svelte";
+</script>
+
 <div class="hero">
 	<div class="icon-container">
 		<img src="main.png" draggable="false" alt="main" />
