@@ -2,6 +2,8 @@
 	"name": "sv-iconify",
 	"version": "1.0.9",
 	"license": "MIT",
+	"description": "A Tree-shakeable Iconify component for Svelte",
+	"author": "merhmerh",
 	"scripts": {
 		"dev": "vite dev",
 		"prebuild": "node src/lib/build/runner.js",
