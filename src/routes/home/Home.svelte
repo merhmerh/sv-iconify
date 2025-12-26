@@ -57,6 +57,9 @@ footer {
 		margin-inline: auto;
 		font-size: 0.875rem;
 		color: color-mix(in srgb, var(--text), 50% transparent);
+		@media screen and (max-width: 768px) {
+			padding-inline: 1rem;
+		}
 	}
 }
 </style>
