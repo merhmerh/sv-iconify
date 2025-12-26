@@ -119,9 +119,8 @@ async function fetchIcon() {
 		if (result) {
 			svg = result.svg ?? "";
 			viewBox = result.viewBox ?? "0 0 24 24";
-			if (strokeWidth || sw) {
+			if (strokeWidth !== undefined || sw !== undefined) {
 				const computedStrokeWidth = strokeWidth ?? sw;
-				console.log(computedStrokeWidth);
 				svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${computedStrokeWidth}"`);
 			}
 		}
