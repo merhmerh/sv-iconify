@@ -1,6 +1,6 @@
 <script>
 import Icon from "$lib/Icon.svelte";
-import { fly, fade, scale } from "svelte/transition";
+import { fly, scale } from "svelte/transition";
 import { cubicInOut } from "svelte/easing";
 import { getThemeState } from "./theme.svelte.js";
 import { innerWidth } from "svelte/reactivity/window";
