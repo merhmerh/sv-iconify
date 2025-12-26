@@ -14,16 +14,6 @@ const icons = [
 	"lucide:bike",
 	"lucide:binary",
 	"lucide:bird",
-	"lucide:bluetooth",
-	"lucide:bomb",
-	"tabler:armchair",
-	"tabler:atom",
-	"tabler:award",
-	"tabler:backhoe",
-	"tabler:ball-basketball",
-	"tabler:bandage",
-	"tabler:barcode",
-	"tabler:basket",
 ];
 </script>
 

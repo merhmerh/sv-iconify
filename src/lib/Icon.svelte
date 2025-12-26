@@ -1,5 +1,6 @@
 <script lang="ts">
 import { load, getProdCacheIcon } from "./Loader.svelte.js";
+import { DEV } from "esm-env";
 
 interface Props {
 	/** Icon name */
@@ -46,8 +47,18 @@ let {
 	style = "",
 }: Props = $props();
 
-let svg = $state("");
+let rawSvg = $state("");
 let viewBox = $state("0 0 24 24");
+
+// Apply stroke-width transformation to the raw SVG
+const svg = $derived.by(() => {
+	if (!rawSvg) return "";
+	if (strokeWidth !== undefined || sw !== undefined) {
+		const computedStrokeWidth = strokeWidth ?? sw;
+		return rawSvg.replace(/stroke-width="[^"]*"/, `stroke-width="${computedStrokeWidth}"`);
+	}
+	return rawSvg;
+});
 
 const { styles, svgWidth, svgHeight } = $derived.by(() => {
 	// Dimensions
@@ -106,11 +117,61 @@ function smartConvertUnit(value: string | number | undefined, defaultUnit = "") 
 	return value ?? (defaultUnit ? `16${defaultUnit}` : "16");
 }
 
+// Only fetch icon when icon name changes, not when strokeWidth changes
 $effect(() => {
 	icon;
-	strokeWidth || sw;
 	fetchIcon();
 });
+
+const NUM_BUCKETS = 10; // Total number of localStorage buckets (sv-iconify-cache-0 through -9)
+const CACHE_KEY_PREFIX = "sv-iconify-cache-";
+
+function getIconBucket(icon: string): number {
+	// Simple hash function to distribute icons across buckets
+	let hash = 0;
+	for (let i = 0; i < icon.length; i++) {
+		hash = (hash << 5) - hash + icon.charCodeAt(i);
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return Math.abs(hash) % NUM_BUCKETS;
+}
+
+function cacheToLocalStorage(icon: string, data: { svg: string; viewBox: string }) {
+	try {
+		const bucketNum = getIconBucket(icon);
+		const cacheKey = CACHE_KEY_PREFIX + bucketNum;
+
+		// Get existing cache for this bucket or create new object
+		const cached = localStorage.getItem(cacheKey);
+		const cacheObj = cached ? JSON.parse(cached) : {};
+
+		// Add/update this icon
+		cacheObj[icon] = data;
+
+		// Save back to localStorage
+		localStorage.setItem(cacheKey, JSON.stringify(cacheObj));
+	} catch (e) {
+		// Silently fail if localStorage is not available or quota exceeded
+		console.warn("Failed to cache icon:", e);
+	}
+}
+
+function getFromLocalStorageCache(icon: string): { svg: string; viewBox: string } | null {
+	try {
+		const bucketNum = getIconBucket(icon);
+		const cacheKey = CACHE_KEY_PREFIX + bucketNum;
+
+		const cached = localStorage.getItem(cacheKey);
+		if (cached) {
+			const cacheObj = JSON.parse(cached);
+			return cacheObj[icon] || null;
+		}
+	} catch (e) {
+		// Silently fail if localStorage is not available
+		console.warn("Failed to read icon cache:", e);
+	}
+	return null;
+}
 
 async function fetchIcon() {
 	const currentIcon = icon;
@@ -118,18 +179,22 @@ async function fetchIcon() {
 		// In prod, get bundle cache
 		let result = getProdCacheIcon(currentIcon);
 
+		// Try localStorage cache if bundle cache miss
+		if (!result && !DEV) {
+			result = getFromLocalStorageCache(currentIcon);
+		}
+
 		// Fall back to async load if not available (dev or cache not ready)
 		if (!result) {
 			result = await load(currentIcon);
 		}
 
 		if (result) {
-			svg = result.svg ?? "";
-			viewBox = result.viewBox ?? "0 0 24 24";
-			if (strokeWidth !== undefined || sw !== undefined) {
-				const computedStrokeWidth = strokeWidth ?? sw;
-				svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${computedStrokeWidth}"`);
+			if (!DEV) {
+				cacheToLocalStorage(currentIcon, result);
 			}
+			rawSvg = result.svg ?? "";
+			viewBox = result.viewBox ?? "0 0 24 24";
 		}
 	}
 }

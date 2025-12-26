@@ -1,4 +1,3 @@
-// Cache for the bundle
 let bundleCache = null;
 let bundlePromise = null;
 import { DEV } from "esm-env";
