@@ -1,9 +1,7 @@
 <script>
 import "./main.scss";
-import { codes } from "./codes.ts";
 import Hero from "./Hero.svelte";
 import Installation from "./Installation.svelte";
-import Code from "./Code.svelte";
 import Props from "./Props.svelte";
 import Usage from "./Usage.svelte";
 import { setThemeState } from "./theme.svelte.js";

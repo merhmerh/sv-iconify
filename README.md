@@ -152,3 +152,8 @@ export default defineConfig({
 ## License
 
 MIT
+
+## Credits
+
+- [Iconify](https://iconify.design/) - Icon source
+- [KawaiiLogos](https://github.com/SAWARATSUKI/KawaiiLogos) - Logo design inspiration

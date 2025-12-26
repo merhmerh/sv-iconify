@@ -259,6 +259,7 @@ const generatedCode = $derived.by(() => {
 			border-radius: 3px;
 			background: var(--gray-100);
 			outline: none;
+			appearance: none;
 			-webkit-appearance: none;
 
 			&::-webkit-slider-thumb {
