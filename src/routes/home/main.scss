@@ -73,6 +73,7 @@ main {
 			font-size: 1.25rem;
 			font-weight: 500;
 			position: relative;
+			width: fit-content;
 			&:before {
 				transition: all 0.3s;
 				content: "#";
@@ -80,6 +81,9 @@ main {
 				left: -1rem;
 				opacity: 0;
 				color: color-mix(in srgb, var(--text), 50% transparent);
+				@media screen and (max-width: 768px) {
+					content: unset;
+				}
 			}
 		}
 		&:hover {
