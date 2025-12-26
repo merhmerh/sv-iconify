@@ -1,6 +1,8 @@
 # sv-iconify
 
-![icon](https://raw.githubusercontent.com/merhmerh/sv-iconify/refs/heads/main/static/main.png)
+<div align="center">
+<img src="https://raw.githubusercontent.com/merhmerh/sv-iconify/refs/heads/main/static/main.png" height="300" />
+</div>
 
 [![npm version](https://img.shields.io/npm/v/sv-iconify?style=flat-square)](https://www.npmjs.com/package/sv-iconify)
 [![license](https://img.shields.io/npm/l/sv-iconify?style=flat-square)](https://github.com/merhmerh/sv-iconify/blob/main/LICENSE)
