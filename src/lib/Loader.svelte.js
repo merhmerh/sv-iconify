@@ -6,6 +6,22 @@ import { DEV } from "esm-env";
 // Cache for individual icon sets in dev mode
 const devIconSetCache = new Map();
 
+// Eagerly start loading the bundle in production
+if (!DEV) {
+	bundlePromise = (async () => {
+		try {
+			const mod = await import("virtual:iconify-bundle");
+			bundleCache = mod.default ?? mod;
+			return bundleCache;
+		} catch (e) {
+			console.error(
+				"[sv-iconify] Icon bundle not found. Make sure you've added the svIconify() plugin to your vite.config.ts",
+			);
+			return null;
+		}
+	})();
+}
+
 /** Load an icon set from individual JSON files (dev mode) */
 async function loadIconSetFromFile(iconSet) {
 	// Check cache first
@@ -34,21 +50,7 @@ async function loadBundle() {
 		return bundleCache;
 	}
 
-	if (!bundlePromise) {
-		bundlePromise = (async () => {
-			try {
-				const mod = await import("virtual:iconify-bundle");
-				bundleCache = mod.default ?? mod;
-				return bundleCache;
-			} catch (e) {
-				console.error(
-					"[sv-iconify] Icon bundle not found. Make sure you've added the svIconify() plugin to your vite.config.ts",
-				);
-				return null;
-			}
-		})();
-	}
-
+	// Bundle is already loading from module initialization
 	return bundlePromise;
 }
 
@@ -79,11 +81,22 @@ export async function load(iconName) {
 		const bundle = await loadBundle();
 		if (!bundle) return null;
 
-		const { svg, viewBox } = bundle[iconName];
-		if (!svg) {
+		const iconData = bundle[iconName];
+		if (!iconData || !iconData.svg) {
 			console.warn(`[sv-iconify] Icon not found in bundle: ${iconName}`);
 			return null;
 		}
-		return { svg, viewBox };
+		return iconData;
 	}
+}
+
+/** Synchronously get icon if bundle is already available (prod only) */
+export function getProdCacheIcon(iconName) {
+	if (DEV || !bundleCache) return null;
+
+	const iconData = bundleCache[iconName];
+	if (!iconData || !iconData.svg) {
+		return null;
+	}
+	return iconData;
 }

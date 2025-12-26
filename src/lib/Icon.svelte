@@ -1,5 +1,5 @@
 <script lang="ts">
-import { load } from "./Loader.svelte.js";
+import { load, getProdCacheIcon } from "./Loader.svelte.js";
 
 interface Props {
 	/** Icon name */
@@ -115,7 +115,14 @@ $effect(() => {
 async function fetchIcon() {
 	const currentIcon = icon;
 	if (currentIcon) {
-		const result = await load(currentIcon);
+		// In prod, get bundle cache
+		let result = getProdCacheIcon(currentIcon);
+
+		// Fall back to async load if not available (dev or cache not ready)
+		if (!result) {
+			result = await load(currentIcon);
+		}
+
 		if (result) {
 			svg = result.svg ?? "";
 			viewBox = result.viewBox ?? "0 0 24 24";
