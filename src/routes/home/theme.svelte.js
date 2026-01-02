@@ -41,8 +41,17 @@ export class ThemeState {
 	}
 
 	setTheme(theme) {
+		//set transition to none to avoid flickering
+		const css = document.createElement("style");
+		css.textContent = "* { transition: none !important; }";
+		document.head.appendChild(css);
+
 		document.documentElement.setAttribute("data-theme", theme);
 		document.documentElement.style.colorScheme = theme;
+
+		//reset transition
+		void document.body.offsetHeight; // Force reflow
+		document.head.removeChild(css);
 	}
 }
 

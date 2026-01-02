@@ -5,6 +5,7 @@ import { cubicInOut } from "svelte/easing";
 import { getThemeState } from "./theme.svelte.js";
 import { innerWidth } from "svelte/reactivity/window";
 
+let { fixed = true } = $props();
 const t = getThemeState();
 let showTheme = $state(true);
 </script>
@@ -16,7 +17,7 @@ let showTheme = $state(true);
 	}} />
 
 {#if showTheme}
-	<div class="fixed" transition:fly>
+	<div class="theme-github" class:fixed transition:fly>
 		<a href="https://github.com/merhmerh/sv-iconify">
 			<Icon icon="mdi:github" width="28" />
 		</a>
@@ -41,14 +42,16 @@ let showTheme = $state(true);
 {/if}
 
 <style lang="scss">
-.fixed {
-	position: fixed;
-	top: 1rem;
-	right: 1rem;
+.theme-github {
 	display: flex;
 	align-items: center;
 	gap: 0.125rem;
-	z-index: 1;
+	&.fixed {
+		position: fixed;
+		z-index: 1;
+		top: 1rem;
+		right: 1rem;
+	}
 	button,
 	a {
 		display: flex;

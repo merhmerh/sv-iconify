@@ -11,6 +11,7 @@ let {
 	awaitIcon = "line-md:loading-twotone-loop",
 	failIcon = "",
 	onclick = () => {},
+	dblclick = false,
 	width = 16,
 	...props
 } = $props();
@@ -41,8 +42,19 @@ let iconsWidth = $derived.by(() => {
 });
 
 onMount(() => {
-	const parent = container.parentElement;
-	parent.addEventListener("click", async (e) => {
+	let parent = container.parentElement;
+	// go up to 3 time
+	for (let i = 0; i < 3; i++) {
+		if (parent && parent.tagName !== "BUTTON") {
+			parent = parent.parentElement;
+		} else {
+			break;
+		}
+	}
+
+	const action = dblclick ? "dblclick" : "click";
+
+	parent.addEventListener(action, async (e) => {
 		if (onclick) {
 			clicked = null;
 			isAwaiting = true;

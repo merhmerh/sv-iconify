@@ -1,0 +1,1082 @@
+[
+    {
+        "name": "Academicons",
+        "prefix": "academicons",
+        "numberOfIcons": 158
+    },
+    {
+        "name": "Akar Icons",
+        "prefix": "akar-icons",
+        "numberOfIcons": 458
+    },
+    {
+        "name": "Ant Design Icons",
+        "prefix": "ant-design",
+        "numberOfIcons": 830
+    },
+    {
+        "name": "Arcticons",
+        "prefix": "arcticons",
+        "numberOfIcons": 14082
+    },
+    {
+        "name": "Basil",
+        "prefix": "basil",
+        "numberOfIcons": 496
+    },
+    {
+        "name": "Bitcoin Icons",
+        "prefix": "bitcoin-icons",
+        "numberOfIcons": 250
+    },
+    {
+        "name": "Bootstrap Icons",
+        "prefix": "bi",
+        "numberOfIcons": 2084
+    },
+    {
+        "name": "BoxIcons",
+        "prefix": "bx",
+        "numberOfIcons": 1609
+    },
+    {
+        "name": "BoxIcons Logo",
+        "prefix": "bxl",
+        "numberOfIcons": 155
+    },
+    {
+        "name": "BoxIcons Solid",
+        "prefix": "bxs",
+        "numberOfIcons": 665
+    },
+    {
+        "name": "BPMN",
+        "prefix": "bpmn",
+        "numberOfIcons": 112
+    },
+    {
+        "name": "Brandico",
+        "prefix": "brandico",
+        "numberOfIcons": 45
+    },
+    {
+        "name": "Bubbles",
+        "prefix": "bubbles",
+        "numberOfIcons": 409
+    },
+    {
+        "name": "Bytesize Icons",
+        "prefix": "bytesize",
+        "numberOfIcons": 102
+    },
+    {
+        "name": "Carbon",
+        "prefix": "carbon",
+        "numberOfIcons": 2547
+    },
+    {
+        "name": "Catppuccin Icons",
+        "prefix": "catppuccin",
+        "numberOfIcons": 659
+    },
+    {
+        "name": "Charm Icons",
+        "prefix": "charm",
+        "numberOfIcons": 262
+    },
+    {
+        "name": "Circle Flags",
+        "prefix": "circle-flags",
+        "numberOfIcons": 731
+    },
+    {
+        "name": "Circum Icons",
+        "prefix": "circum",
+        "numberOfIcons": 288
+    },
+    {
+        "name": "Clarity",
+        "prefix": "clarity",
+        "numberOfIcons": 1105
+    },
+    {
+        "name": "CodeX Icons",
+        "prefix": "codex",
+        "numberOfIcons": 78
+    },
+    {
+        "name": "Codicons",
+        "prefix": "codicon",
+        "numberOfIcons": 539
+    },
+    {
+        "name": "coolicons",
+        "prefix": "ci",
+        "numberOfIcons": 715
+    },
+    {
+        "name": "CoreUI Brands",
+        "prefix": "cib",
+        "numberOfIcons": 830
+    },
+    {
+        "name": "CoreUI Flags",
+        "prefix": "cif",
+        "numberOfIcons": 199
+    },
+    {
+        "name": "CoreUI Free",
+        "prefix": "cil",
+        "numberOfIcons": 562
+    },
+    {
+        "name": "Covid Icons",
+        "prefix": "covid",
+        "numberOfIcons": 142
+    },
+    {
+        "name": "Cryptocurrency Color Icons",
+        "prefix": "cryptocurrency-color",
+        "numberOfIcons": 483
+    },
+    {
+        "name": "Cryptocurrency Icons",
+        "prefix": "cryptocurrency",
+        "numberOfIcons": 483
+    },
+    {
+        "name": "css.gg",
+        "prefix": "gg",
+        "numberOfIcons": 704
+    },
+    {
+        "name": "Cuida Icons",
+        "prefix": "cuida",
+        "numberOfIcons": 182
+    },
+    {
+        "name": "Custom Brand Icons",
+        "prefix": "cbi",
+        "numberOfIcons": 1491
+    },
+    {
+        "name": "Cyber color icons",
+        "prefix": "streamline-cyber-color",
+        "numberOfIcons": 500
+    },
+    {
+        "name": "Cyber free icons",
+        "prefix": "streamline-cyber",
+        "numberOfIcons": 500
+    },
+    {
+        "name": "Dashicons",
+        "prefix": "dashicons",
+        "numberOfIcons": 345
+    },
+    {
+        "name": "Devicon",
+        "prefix": "devicon",
+        "numberOfIcons": 1026
+    },
+    {
+        "name": "Devicon Line",
+        "prefix": "devicon-line",
+        "numberOfIcons": 69
+    },
+    {
+        "name": "Devicon Original",
+        "prefix": "devicon-original",
+        "numberOfIcons": 659
+    },
+    {
+        "name": "Devicon Plain",
+        "prefix": "devicon-plain",
+        "numberOfIcons": 772
+    },
+    {
+        "name": "Dinkie Icons",
+        "prefix": "dinkie-icons",
+        "numberOfIcons": 1198
+    },
+    {
+        "name": "Duoicons",
+        "prefix": "duo-icons",
+        "numberOfIcons": 91
+    },
+    {
+        "name": "Elegant",
+        "prefix": "et",
+        "numberOfIcons": 100
+    },
+    {
+        "name": "Element Plus",
+        "prefix": "ep",
+        "numberOfIcons": 293
+    },
+    {
+        "name": "Elusive Icons",
+        "prefix": "el",
+        "numberOfIcons": 304
+    },
+    {
+        "name": "Emblemicons",
+        "prefix": "emblemicons",
+        "numberOfIcons": 0
+    },
+    {
+        "name": "Entypo+",
+        "prefix": "entypo",
+        "numberOfIcons": 321
+    },
+    {
+        "name": "Entypo+ Social",
+        "prefix": "entypo-social",
+        "numberOfIcons": 76
+    },
+    {
+        "name": "EOS Icons",
+        "prefix": "eos-icons",
+        "numberOfIcons": 253
+    },
+    {
+        "name": "Eva Icons",
+        "prefix": "eva",
+        "numberOfIcons": 490
+    },
+    {
+        "name": "Evil Icons",
+        "prefix": "ei",
+        "numberOfIcons": 70
+    },
+    {
+        "name": "Famicons",
+        "prefix": "famicons",
+        "numberOfIcons": 1342
+    },
+    {
+        "name": "Feather Icon",
+        "prefix": "fe",
+        "numberOfIcons": 255
+    },
+    {
+        "name": "Feather Icons",
+        "prefix": "feather",
+        "numberOfIcons": 286
+    },
+    {
+        "name": "File Icons",
+        "prefix": "file-icons",
+        "numberOfIcons": 930
+    },
+    {
+        "name": "Flag Icons",
+        "prefix": "flag",
+        "numberOfIcons": 542
+    },
+    {
+        "name": "Flagpack",
+        "prefix": "flagpack",
+        "numberOfIcons": 256
+    },
+    {
+        "name": "Flat Color Icons",
+        "prefix": "flat-color-icons",
+        "numberOfIcons": 329
+    },
+    {
+        "name": "Flat UI Icons",
+        "prefix": "flat-ui",
+        "numberOfIcons": 100
+    },
+    {
+        "name": "Flex color icons",
+        "prefix": "streamline-flex-color",
+        "numberOfIcons": 1000
+    },
+    {
+        "name": "Flex free icons",
+        "prefix": "streamline-flex",
+        "numberOfIcons": 1500
+    },
+    {
+        "name": "Flowbite Icons",
+        "prefix": "flowbite",
+        "numberOfIcons": 804
+    },
+    {
+        "name": "Fluent UI MDL2",
+        "prefix": "fluent-mdl2",
+        "numberOfIcons": 1735
+    },
+    {
+        "name": "Fluent UI System Color Icons",
+        "prefix": "fluent-color",
+        "numberOfIcons": 890
+    },
+    {
+        "name": "Fluent UI System Icons",
+        "prefix": "fluent",
+        "numberOfIcons": 19257
+    },
+    {
+        "name": "Font Awesome 4",
+        "prefix": "fa",
+        "numberOfIcons": 649
+    },
+    {
+        "name": "Font Awesome 5 Brands",
+        "prefix": "fa-brands",
+        "numberOfIcons": 460
+    },
+    {
+        "name": "Font Awesome 5 Regular",
+        "prefix": "fa-regular",
+        "numberOfIcons": 151
+    },
+    {
+        "name": "Font Awesome 5 Solid",
+        "prefix": "fa-solid",
+        "numberOfIcons": 1023
+    },
+    {
+        "name": "Font Awesome 6 Brands",
+        "prefix": "fa6-brands",
+        "numberOfIcons": 495
+    },
+    {
+        "name": "Font Awesome 6 Regular",
+        "prefix": "fa6-regular",
+        "numberOfIcons": 164
+    },
+    {
+        "name": "Font Awesome 6 Solid",
+        "prefix": "fa6-solid",
+        "numberOfIcons": 1407
+    },
+    {
+        "name": "Font Awesome Brands",
+        "prefix": "fa7-brands",
+        "numberOfIcons": 548
+    },
+    {
+        "name": "Font Awesome Regular",
+        "prefix": "fa7-regular",
+        "numberOfIcons": 272
+    },
+    {
+        "name": "Font Awesome Solid",
+        "prefix": "fa7-solid",
+        "numberOfIcons": 1983
+    },
+    {
+        "name": "Font-GIS",
+        "prefix": "gis",
+        "numberOfIcons": 367
+    },
+    {
+        "name": "FontAudio",
+        "prefix": "fad",
+        "numberOfIcons": 155
+    },
+    {
+        "name": "Fontelico",
+        "prefix": "fontelico",
+        "numberOfIcons": 34
+    },
+    {
+        "name": "Fontisto",
+        "prefix": "fontisto",
+        "numberOfIcons": 615
+    },
+    {
+        "name": "FormKit Icons",
+        "prefix": "formkit",
+        "numberOfIcons": 144
+    },
+    {
+        "name": "Foundation",
+        "prefix": "foundation",
+        "numberOfIcons": 283
+    },
+    {
+        "name": "Framework7 Icons",
+        "prefix": "f7",
+        "numberOfIcons": 1253
+    },
+    {
+        "name": "Freehand color icons",
+        "prefix": "streamline-freehand-color",
+        "numberOfIcons": 1000
+    },
+    {
+        "name": "Freehand free icons",
+        "prefix": "streamline-freehand",
+        "numberOfIcons": 1000
+    },
+    {
+        "name": "Gala Icons",
+        "prefix": "gala",
+        "numberOfIcons": 51
+    },
+    {
+        "name": "Game Icons",
+        "prefix": "game-icons",
+        "numberOfIcons": 4123
+    },
+    {
+        "name": "Garden SVG Icons",
+        "prefix": "garden",
+        "numberOfIcons": 1007
+    },
+    {
+        "name": "GeoGlyphs",
+        "prefix": "geo",
+        "numberOfIcons": 30
+    },
+    {
+        "name": "Gitlab SVGs",
+        "prefix": "pajamas",
+        "numberOfIcons": 414
+    },
+    {
+        "name": "Google Material Icons",
+        "prefix": "ic",
+        "numberOfIcons": 10956
+    },
+    {
+        "name": "Gravity UI Icons",
+        "prefix": "gravity-ui",
+        "numberOfIcons": 744
+    },
+    {
+        "name": "Gridicons",
+        "prefix": "gridicons",
+        "numberOfIcons": 207
+    },
+    {
+        "name": "Grommet Icons",
+        "prefix": "grommet-icons",
+        "numberOfIcons": 637
+    },
+    {
+        "name": "Guidance",
+        "prefix": "guidance",
+        "numberOfIcons": 360
+    },
+    {
+        "name": "Guidance",
+        "prefix": "streamline-guidance",
+        "numberOfIcons": 360
+    },
+    {
+        "name": "Health Icons",
+        "prefix": "healthicons",
+        "numberOfIcons": 2691
+    },
+    {
+        "name": "HeroIcons",
+        "prefix": "heroicons",
+        "numberOfIcons": 1288
+    },
+    {
+        "name": "HeroIcons v1 Outline",
+        "prefix": "heroicons-outline",
+        "numberOfIcons": 385
+    },
+    {
+        "name": "HeroIcons v1 Solid",
+        "prefix": "heroicons-solid",
+        "numberOfIcons": 387
+    },
+    {
+        "name": "Huge Icons",
+        "prefix": "hugeicons",
+        "numberOfIcons": 4585
+    },
+    {
+        "name": "Humbleicons",
+        "prefix": "humbleicons",
+        "numberOfIcons": 283
+    },
+    {
+        "name": "Icalicons",
+        "prefix": "il",
+        "numberOfIcons": 84
+    },
+    {
+        "name": "IcoMoon Free",
+        "prefix": "icomoon-free",
+        "numberOfIcons": 491
+    },
+    {
+        "name": "IconaMoon",
+        "prefix": "iconamoon",
+        "numberOfIcons": 1781
+    },
+    {
+        "name": "Iconoir",
+        "prefix": "iconoir",
+        "numberOfIcons": 1682
+    },
+    {
+        "name": "IconPark",
+        "prefix": "icon-park",
+        "numberOfIcons": 2658
+    },
+    {
+        "name": "IconPark Outline",
+        "prefix": "icon-park-outline",
+        "numberOfIcons": 2658
+    },
+    {
+        "name": "IconPark Solid",
+        "prefix": "icon-park-solid",
+        "numberOfIcons": 1970
+    },
+    {
+        "name": "IconPark TwoTone",
+        "prefix": "icon-park-twotone",
+        "numberOfIcons": 1947
+    },
+    {
+        "name": "Icons8 Windows 10 Icons",
+        "prefix": "icons8",
+        "numberOfIcons": 234
+    },
+    {
+        "name": "Icons8 Windows 8 Icons",
+        "prefix": "wpf",
+        "numberOfIcons": 200
+    },
+    {
+        "name": "Innowatio Font",
+        "prefix": "iwwa",
+        "numberOfIcons": 105
+    },
+    {
+        "name": "IonIcons",
+        "prefix": "ion",
+        "numberOfIcons": 2361
+    },
+    {
+        "name": "Jam Icons",
+        "prefix": "jam",
+        "numberOfIcons": 940
+    },
+    {
+        "name": "Kameleon color icons",
+        "prefix": "streamline-kameleon-color",
+        "numberOfIcons": 400
+    },
+    {
+        "name": "Lets Icons",
+        "prefix": "lets-icons",
+        "numberOfIcons": 1544
+    },
+    {
+        "name": "Ligature Symbols",
+        "prefix": "ls",
+        "numberOfIcons": 348
+    },
+    {
+        "name": "Line Awesome",
+        "prefix": "la",
+        "numberOfIcons": 1544
+    },
+    {
+        "name": "Lineicons",
+        "prefix": "lineicons",
+        "numberOfIcons": 962
+    },
+    {
+        "name": "Logos free icons",
+        "prefix": "streamline-logos",
+        "numberOfIcons": 1362
+    },
+    {
+        "name": "Lsicon",
+        "prefix": "lsicon",
+        "numberOfIcons": 716
+    },
+    {
+        "name": "Lucide",
+        "prefix": "lucide",
+        "numberOfIcons": 1707
+    },
+    {
+        "name": "Lucide Lab",
+        "prefix": "lucide-lab",
+        "numberOfIcons": 373
+    },
+    {
+        "name": "Mage Icons",
+        "prefix": "mage",
+        "numberOfIcons": 1042
+    },
+    {
+        "name": "Majesticons",
+        "prefix": "majesticons",
+        "numberOfIcons": 1045
+    },
+    {
+        "name": "Maki",
+        "prefix": "maki",
+        "numberOfIcons": 418
+    },
+    {
+        "name": "Map Icons",
+        "prefix": "map",
+        "numberOfIcons": 167
+    },
+    {
+        "name": "Marketeq",
+        "prefix": "marketeq",
+        "numberOfIcons": 590
+    },
+    {
+        "name": "Material Design Iconic Font",
+        "prefix": "zmdi",
+        "numberOfIcons": 777
+    },
+    {
+        "name": "Material Design Icons",
+        "prefix": "mdi",
+        "numberOfIcons": 7638
+    },
+    {
+        "name": "Material Design Light",
+        "prefix": "mdi-light",
+        "numberOfIcons": 304
+    },
+    {
+        "name": "Material Icon Theme",
+        "prefix": "material-icon-theme",
+        "numberOfIcons": 1136
+    },
+    {
+        "name": "Material Line Icons",
+        "prefix": "line-md",
+        "numberOfIcons": 1093
+    },
+    {
+        "name": "Material Symbols",
+        "prefix": "material-symbols",
+        "numberOfIcons": 15862
+    },
+    {
+        "name": "Material Symbols Light",
+        "prefix": "material-symbols-light",
+        "numberOfIcons": 15390
+    },
+    {
+        "name": "Medical Icons",
+        "prefix": "medical-icon",
+        "numberOfIcons": 144
+    },
+    {
+        "name": "Memory Icons",
+        "prefix": "memory",
+        "numberOfIcons": 651
+    },
+    {
+        "name": "Meteocons",
+        "prefix": "meteocons",
+        "numberOfIcons": 450
+    },
+    {
+        "name": "Meteor Icons",
+        "prefix": "meteor-icons",
+        "numberOfIcons": 321
+    },
+    {
+        "name": "MingCute Icon",
+        "prefix": "mingcute",
+        "numberOfIcons": 3320
+    },
+    {
+        "name": "Mono Icons",
+        "prefix": "mi",
+        "numberOfIcons": 180
+    },
+    {
+        "name": "Mono Icons",
+        "prefix": "mono-icons",
+        "numberOfIcons": 180
+    },
+    {
+        "name": "Myna UI Icons",
+        "prefix": "mynaui",
+        "numberOfIcons": 2562
+    },
+    {
+        "name": "Nimbus",
+        "prefix": "nimbus",
+        "numberOfIcons": 140
+    },
+    {
+        "name": "Nonicons",
+        "prefix": "nonicons",
+        "numberOfIcons": 69
+    },
+    {
+        "name": "Noto Emoji",
+        "prefix": "noto",
+        "numberOfIcons": 3800
+    },
+    {
+        "name": "Noto Emoji (v1)",
+        "prefix": "noto-v1",
+        "numberOfIcons": 2162
+    },
+    {
+        "name": "NRK Core Icons",
+        "prefix": "nrk",
+        "numberOfIcons": 241
+    },
+    {
+        "name": "Octicons",
+        "prefix": "octicon",
+        "numberOfIcons": 901
+    },
+    {
+        "name": "OOUI",
+        "prefix": "ooui",
+        "numberOfIcons": 370
+    },
+    {
+        "name": "Open Iconic",
+        "prefix": "oi",
+        "numberOfIcons": 223
+    },
+    {
+        "name": "OpenMoji",
+        "prefix": "openmoji",
+        "numberOfIcons": 4481
+    },
+    {
+        "name": "OpenSearch UI",
+        "prefix": "oui",
+        "numberOfIcons": 444
+    },
+    {
+        "name": "Pepicons",
+        "prefix": "pepicons",
+        "numberOfIcons": 428
+    },
+    {
+        "name": "Pepicons Pencil",
+        "prefix": "pepicons-pencil",
+        "numberOfIcons": 1275
+    },
+    {
+        "name": "Pepicons Pop!",
+        "prefix": "pepicons-pop",
+        "numberOfIcons": 1290
+    },
+    {
+        "name": "Pepicons Print",
+        "prefix": "pepicons-print",
+        "numberOfIcons": 1286
+    },
+    {
+        "name": "Phosphor",
+        "prefix": "ph",
+        "numberOfIcons": 9161
+    },
+    {
+        "name": "Pico-icon",
+        "prefix": "picon",
+        "numberOfIcons": 824
+    },
+    {
+        "name": "Pixel free icons",
+        "prefix": "streamline-pixel",
+        "numberOfIcons": 662
+    },
+    {
+        "name": "Pixel Icon",
+        "prefix": "pixel",
+        "numberOfIcons": 450
+    },
+    {
+        "name": "Pixelarticons",
+        "prefix": "pixelarticons",
+        "numberOfIcons": 486
+    },
+    {
+        "name": "Plump color icons",
+        "prefix": "streamline-plump-color",
+        "numberOfIcons": 1000
+    },
+    {
+        "name": "Plump free icons",
+        "prefix": "streamline-plump",
+        "numberOfIcons": 1499
+    },
+    {
+        "name": "PrestaShop Icons",
+        "prefix": "ps",
+        "numberOfIcons": 479
+    },
+    {
+        "name": "Prime Icons",
+        "prefix": "prime",
+        "numberOfIcons": 313
+    },
+    {
+        "name": "ProIcons",
+        "prefix": "proicons",
+        "numberOfIcons": 545
+    },
+    {
+        "name": "Qlementine Icons",
+        "prefix": "qlementine-icons",
+        "numberOfIcons": 852
+    },
+    {
+        "name": "Quill Icons",
+        "prefix": "quill",
+        "numberOfIcons": 141
+    },
+    {
+        "name": "Radix Icons",
+        "prefix": "radix-icons",
+        "numberOfIcons": 342
+    },
+    {
+        "name": "Raphael",
+        "prefix": "raphael",
+        "numberOfIcons": 266
+    },
+    {
+        "name": "Remix Icon",
+        "prefix": "ri",
+        "numberOfIcons": 3135
+    },
+    {
+        "name": "Rivet Icons",
+        "prefix": "rivet-icons",
+        "numberOfIcons": 210
+    },
+    {
+        "name": "Röntgen",
+        "prefix": "roentgen",
+        "numberOfIcons": 514
+    },
+    {
+        "name": "Sargam Icons",
+        "prefix": "si",
+        "numberOfIcons": 1271
+    },
+    {
+        "name": "Sharp color icons",
+        "prefix": "streamline-sharp-color",
+        "numberOfIcons": 1000
+    },
+    {
+        "name": "Sharp free icons",
+        "prefix": "streamline-sharp",
+        "numberOfIcons": 1500
+    },
+    {
+        "name": "SidekickIcons",
+        "prefix": "sidekickicons",
+        "numberOfIcons": 224
+    },
+    {
+        "name": "Siemens Industrial Experience Icons",
+        "prefix": "ix",
+        "numberOfIcons": 1426
+    },
+    {
+        "name": "Simple Icons",
+        "prefix": "simple-icons",
+        "numberOfIcons": 3632
+    },
+    {
+        "name": "Simple line icons",
+        "prefix": "simple-line-icons",
+        "numberOfIcons": 194
+    },
+    {
+        "name": "Skill Icons",
+        "prefix": "skill-icons",
+        "numberOfIcons": 397
+    },
+    {
+        "name": "SmartIcons Glyph",
+        "prefix": "si-glyph",
+        "numberOfIcons": 799
+    },
+    {
+        "name": "Solar",
+        "prefix": "solar",
+        "numberOfIcons": 7404
+    },
+    {
+        "name": "Stash Icons",
+        "prefix": "stash",
+        "numberOfIcons": 982
+    },
+    {
+        "name": "Stickies color icons",
+        "prefix": "streamline-stickies-color",
+        "numberOfIcons": 200
+    },
+    {
+        "name": "Streamline",
+        "prefix": "streamline",
+        "numberOfIcons": 3933
+    },
+    {
+        "name": "Streamline Block",
+        "prefix": "streamline-block",
+        "numberOfIcons": 300
+    },
+    {
+        "name": "Streamline color",
+        "prefix": "streamline-color",
+        "numberOfIcons": 2000
+    },
+    {
+        "name": "Subway Icon Set",
+        "prefix": "subway",
+        "numberOfIcons": 306
+    },
+    {
+        "name": "SVG Logos",
+        "prefix": "logos",
+        "numberOfIcons": 2063
+    },
+    {
+        "name": "SVG Spinners",
+        "prefix": "svg-spinners",
+        "numberOfIcons": 46
+    },
+    {
+        "name": "System UIcons",
+        "prefix": "system-uicons",
+        "numberOfIcons": 430
+    },
+    {
+        "name": "Tabler Icons",
+        "prefix": "tabler",
+        "numberOfIcons": 6033
+    },
+    {
+        "name": "TDesign Icons",
+        "prefix": "tdesign",
+        "numberOfIcons": 2138
+    },
+    {
+        "name": "Teenyicons",
+        "prefix": "teenyicons",
+        "numberOfIcons": 1200
+    },
+    {
+        "name": "Temaki",
+        "prefix": "temaki",
+        "numberOfIcons": 543
+    },
+    {
+        "name": "TopCoat Icons",
+        "prefix": "topcoat",
+        "numberOfIcons": 89
+    },
+    {
+        "name": "Typicons",
+        "prefix": "typcn",
+        "numberOfIcons": 336
+    },
+    {
+        "name": "uiw icons",
+        "prefix": "uiw",
+        "numberOfIcons": 214
+    },
+    {
+        "name": "Ultimate color icons",
+        "prefix": "streamline-ultimate-color",
+        "numberOfIcons": 998
+    },
+    {
+        "name": "Ultimate free icons",
+        "prefix": "streamline-ultimate",
+        "numberOfIcons": 1999
+    },
+    {
+        "name": "Unicons",
+        "prefix": "uil",
+        "numberOfIcons": 1216
+    },
+    {
+        "name": "Unicons Monochrome",
+        "prefix": "uim",
+        "numberOfIcons": 298
+    },
+    {
+        "name": "Unicons Solid",
+        "prefix": "uis",
+        "numberOfIcons": 190
+    },
+    {
+        "name": "Unicons Thin Line",
+        "prefix": "uit",
+        "numberOfIcons": 216
+    },
+    {
+        "name": "UnJS Logos",
+        "prefix": "unjs",
+        "numberOfIcons": 63
+    },
+    {
+        "name": "Vaadin Icons",
+        "prefix": "vaadin",
+        "numberOfIcons": 636
+    },
+    {
+        "name": "Vesper Icons",
+        "prefix": "vs",
+        "numberOfIcons": 159
+    },
+    {
+        "name": "VSCode Icons",
+        "prefix": "vscode-icons",
+        "numberOfIcons": 1426
+    },
+    {
+        "name": "Weather Icons",
+        "prefix": "wi",
+        "numberOfIcons": 230
+    },
+    {
+        "name": "Web Symbols Liga",
+        "prefix": "websymbol",
+        "numberOfIcons": 85
+    },
+    {
+        "name": "Web3 Icons",
+        "prefix": "token",
+        "numberOfIcons": 1840
+    },
+    {
+        "name": "Web3 Icons Branded",
+        "prefix": "token-branded",
+        "numberOfIcons": 2103
+    },
+    {
+        "name": "WebHostingHub Glyphs",
+        "prefix": "whh",
+        "numberOfIcons": 2125
+    },
+    {
+        "name": "WeUI Icon",
+        "prefix": "weui",
+        "numberOfIcons": 162
+    },
+    {
+        "name": "Zondicons",
+        "prefix": "zondicons",
+        "numberOfIcons": 297
+    }
+]

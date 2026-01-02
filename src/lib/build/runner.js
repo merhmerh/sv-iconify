@@ -6,6 +6,7 @@ main();
 
 function main() {
 	pullIcons();
+	getListOfIconSets();
 }
 
 function pullIcons() {
@@ -38,6 +39,29 @@ function pullIcons() {
 			count++;
 		}
 	}
-
 	console.log(`Copied ${count} icon set files to ${targetDir}`);
+}
+
+function getListOfIconSets() {
+	//read all files in src/lib/data/json
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = path.dirname(__filename);
+	const jsonDir = path.resolve(__dirname, "../data/json");
+
+	const files = fs.readdirSync(jsonDir);
+	const iconSets = [];
+
+	for (const file of files) {
+		const raw = fs.readFileSync(path.join(jsonDir, file), "utf-8");
+		const data = JSON.parse(raw);
+		iconSets.push({
+			name: data.info.name,
+			prefix: data.prefix,
+			numberOfIcons: Object.keys(data.icons).length,
+		});
+	}
+
+	iconSets.sort((a, b) => a.name.localeCompare(b.name));
+
+	fs.writeFileSync(path.join(__dirname, "../data/iconsets.json"), JSON.stringify(iconSets));
 }
