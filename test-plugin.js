@@ -19,8 +19,8 @@ const config = {
 	sourceDir: path.join(__dirname, "src/lib/data/json"),
 	outputPath: ".svelte-kit/sv-iconify/icons-bundle.json",
 	includes: {
-		iconSets: ["lucide"],
-		icons: ["lucide:home"],
+		iconSets: ["logos"],
+		icons: ["mdi:home"],
 	},
 };
 

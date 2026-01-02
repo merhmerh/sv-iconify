@@ -102,6 +102,8 @@ The plugin scans your code for icon usage (e.g., `icon="mdi:home"`) and creates 
 - **Development mode:** This library contains all icons and serves them on demand
 - **Production mode:** Bundle includes only the icons you use, optimized for size
 
+If an icon can’t be loaded locally, it falls back to the Iconify API and fetches the icon over the network.
+
 ## Configuration
 
 The Vite plugin can be configured with the following options:
@@ -125,6 +127,10 @@ The Vite plugin can be configured with the following options:
         - List of icon set prefixes to include entirely (e.g., `['lucide', 'tabler']`).
     - **`includes.icons`** (`string[]`)
         - Specific icons to include (e.g., `['lucide:home', 'tabler:package']`).
+
+- **`fallback`** (`boolean`)
+    - Enable or disable fallback to Iconify API when an icon is not found locally.
+    - Default: `true`.
 
 ### Configuration Example
 

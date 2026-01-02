@@ -18,6 +18,29 @@ import Theme from "./Theme.svelte";
 	<Usage />
 	<Props />
 	<ViteConfig />
+	<section class="limitation">
+		<h3>Limitation</h3>
+
+		<ul>
+			<li>
+				<p>
+					Since sv-iconify relies on static analysis to detect icon usage in your source code,
+					dynamic icon names (e.g., those constructed at runtime) may not be detected and
+					included in the bundle.
+				</p>
+				<p>
+					Use the <em>includes</em> option in the Vite plugin configuration to manually include such
+					icons or icon sets to ensure they are available at runtime.
+				</p>
+			</li>
+			<li>
+				<p>
+					Emoji icons are not included are they are too large for dev bundles. If you need
+					emoji ensure fallback is set to true and ensure it have internet access.
+				</p>
+			</li>
+		</ul>
+	</section>
 	<Credits />
 </main>
 
@@ -34,6 +57,14 @@ main {
 	@media screen and (max-width: 632px) {
 		padding-inline: 1rem;
 		width: 100%;
+	}
+	.limitation {
+		li {
+			margin-left: -1rem;
+		}
+		p {
+			margin-block: 0.5rem;
+		}
 	}
 }
 </style>

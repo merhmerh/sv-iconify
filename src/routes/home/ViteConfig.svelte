@@ -9,6 +9,7 @@ import { codes } from "./codes.ts";
 		To ensure tree-shaking works correctly, make sure to add the svIconify vite plugin to your
 		vite config. You can pass options to customize the behavior.
 	</p>
+
 	<Code code={codes.vitePluginConfig} file="vite.config.js" lang="js" />
 
 	<ul class="config-list">
@@ -44,6 +45,13 @@ import { codes } from "./codes.ts";
 					<em>e.g., ['lucide:home', 'tabler:package']</em>
 				</li>
 			</ul>
+		</li>
+		<li>
+			<strong>fallback</strong> - <span class="type">(boolean)</span><br />
+			Enable or disable fallback to Iconify API when an icon is not found locally.<br />
+			When set to true, if an icon cannot be found in the bundled icons, it will attempt to fetch it
+			from Iconify API.<br />
+			<em>Default: true</em>
 		</li>
 	</ul>
 </section>

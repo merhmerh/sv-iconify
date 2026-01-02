@@ -32,8 +32,6 @@ ul {
 				font-weight: 500;
 			}
 		}
-		span {
-		}
 	}
 }
 </style>

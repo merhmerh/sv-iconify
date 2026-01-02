@@ -57,7 +57,10 @@ export class IconListState {
 		const params = {
 			query: query,
 			prefixes: prefixes,
+			limit: 999,
 		};
+		console.log("to updated - fetch by iconset instead of combine");
+
 		const resp = await fetch(
 			`https://api.iconify.design/search?` + new URLSearchParams(params),
 		);
@@ -79,7 +82,6 @@ export class IconListState {
 		);
 		this.icons = iconResults;
 
-		console.log($state.snapshot(iconResults));
 		localStorage.setItem("lastSearch", query);
 	}
 

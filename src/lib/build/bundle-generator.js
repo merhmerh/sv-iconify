@@ -19,19 +19,24 @@ function getAllIconsFromSet(p, iconset) {
 
 	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
 	const { width, height, top, left } = json;
-	const viewBox = `${top ?? 0} ${left ?? 0} ${width ?? 16} ${height ?? 16}`;
+
 	const iconsMap = {};
 	const aliasMap = new Map();
 	for (const [alias, { parent }] of Object.entries(json.aliases)) {
 		aliasMap.set(parent, alias);
 	}
-	for (const [key, { body }] of Object.entries(json.icons)) {
-		if (aliasMap.has(key)) {
-			const k = aliasMap.get(key);
-			iconsMap[k] = { svg: body, viewBox };
-			continue;
-		}
-		iconsMap[key] = { svg: body, viewBox };
+	for (const [key, icon] of Object.entries(json.icons)) {
+		const iconName = aliasMap.has(key) ? aliasMap.get(key) : key;
+
+		const viewBoxObj = {
+			left: icon?.left ?? left ?? 0,
+			top: icon?.top ?? top ?? 0,
+			width: icon?.width ?? width ?? 16,
+			height: icon?.height ?? height ?? 16,
+		};
+		const viewBox = Object.values(viewBoxObj).join(" ");
+		const svg = icon.body;
+		iconsMap[iconName] = { svg, viewBox };
 	}
 	return iconsMap;
 }
@@ -44,32 +49,28 @@ function getIcons(p, iconSet, iconNames) {
 	}
 
 	const json = JSON.parse(fs.readFileSync(p, "utf-8"));
-	// console.log(json.info.name); //iconName
 	const { top, left, width, height } = json;
-	const viewBox = `${top ?? 0} ${left ?? 0} ${width ?? 16} ${height ?? 16}`;
 	const iconsMap = {};
 	for (const name of iconNames) {
 		const key = `${iconSet}:${name}`;
-		const directSvg = json.icons?.[name]?.body;
-		if (directSvg) {
-			iconsMap[key] = { svg: directSvg, viewBox };
+		let icon = json.icons?.[name];
+		if (!icon) {
+			const alias = json.aliases?.[name]?.parent;
+			if (!alias) console.error(`❌ Icon not found for "${chalk.red(key)}"`);
+			icon = json.icons?.[alias];
 			continue;
 		}
 
-		// Try to resolve alias
-		const alias = json.aliases?.[name]?.parent;
-		if (!alias) {
-			console.error(`❌ Icon not found for "${chalk.red(key)}"`);
-			continue;
-		}
+		const svg = icon.body;
+		const viewBoxObj = {
+			left: icon?.left ?? left ?? 0,
+			top: icon?.top ?? top ?? 0,
+			width: icon?.width ?? width ?? 16,
+			height: icon?.height ?? height ?? 16,
+		};
+		const viewBox = Object.values(viewBoxObj).join(" ");
 
-		const aliasSvg = json.icons?.[alias]?.body;
-		if (!aliasSvg) {
-			console.error(`❌ Icon not found for "${chalk.red(key)}"`);
-			continue;
-		}
-
-		iconsMap[key] = { svg: aliasSvg, viewBox };
+		iconsMap[key] = { svg: svg, viewBox };
 	}
 
 	return iconsMap;

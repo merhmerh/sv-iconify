@@ -7,6 +7,10 @@ import { createOptimizedBundle, extractIconReferences } from "./bundle-generator
  * @property {string} [sourceDir] - Path to the directory containing icon JSON files. If not provided, will auto-detect from node_modules/sv-iconify
  * @property {string} [outputPath='static/_sv-iconify/icons-bundle.json'] - Output path for the generated icon bundle (production builds only)
  * @property {string} [scanDir='src'] - Directory to scan for icon usage in your source files
+ * @property {Object} [includes] - Additional icon sets and icons to always include in the bundle
+ * @property {string[]} [includes.iconSets] - Array of icon set names to always include
+ * @property {string[]} [includes.icons] - Array of individual icon names to always include
+ * @property {boolean} [fallback=true] - Whether to enable fallback loading from the Iconify API for missing icons
  */
 
 /**
@@ -22,6 +26,7 @@ export function svIconify({
 		iconSets: [],
 		icons: [],
 	},
+	fallback = true,
 } = {}) {
 	let rootDir = "";
 	let bundleGenerated = false;
@@ -40,6 +45,9 @@ export function svIconify({
 			return {
 				optimizeDeps: {
 					exclude: ["sv-iconify"],
+				},
+				define: {
+					__SV_ICONIFY_FALLBACK__: JSON.stringify(fallback),
 				},
 			};
 		},

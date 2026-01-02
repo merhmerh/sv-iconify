@@ -28,6 +28,11 @@ export interface SvIconifyOptions {
 		 */
 		icons?: string[];
 	};
+	/**
+	 * Whether to enable fallback loading from the Iconify API for missing icons
+	 * @default true
+	 */
+	fallback?: boolean;
 }
 
 /**
