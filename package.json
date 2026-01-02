@@ -5,7 +5,10 @@
 	"description": "A Tree-shakeable Iconify component for Svelte",
 	"author": "merhmerh",
 	"homepage": "https://sv-iconify.vercel.app/",
-	"repository": "https://github.com/merhmerh/sv-iconify",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/merhmerh/sv-iconify.git"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"prebuild": "node src/lib/build/runner.js",
@@ -49,7 +52,6 @@
 		"@iconify/json": "^2.2.421",
 		"@iconify/svelte": "^5.1.0",
 		"@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.49.1",
 		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
