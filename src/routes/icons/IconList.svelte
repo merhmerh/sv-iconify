@@ -64,12 +64,22 @@ $effect(() => {
 							<div class="icon-box-container">
 								<button
 									class="icon-box"
-									class:selected={ic.selectedIcon?.iconName === icon}
-									onclick={(e) => ic.selectIcon(e, icon)}>
-									<Icon {icon} width="40" />
+									class:selected={ic.selectedIcon?.iconName === icon.iconName}
+									onclick={(e) => ic.selectIcon(e, icon.iconName)}
+									onkeydown={(e) => {
+										if (e.key === "Enter" || e.key === " ") {
+											if (icon.copyButton) icon.copyButton.click();
+										}
+									}}
+									ondblclick={() => {
+										if (icon.copyButton) icon.copyButton.click();
+									}}>
+									<Icon icon={icon.iconName} width="40" />
 								</button>
-								<button class="copy" onclick={() => navigator.clipboard.writeText(icon)}>
-									<IconButton icon="lucide:copy" width="14" />
+								<button
+									class="copy"
+									onclick={() => navigator.clipboard.writeText(icon.iconName)}>
+									<IconButton bind:this={icon.copyButton} icon="lucide:copy" width="14" />
 								</button>
 							</div>
 						{/each}
@@ -95,11 +105,9 @@ $effect(() => {
 			</div>
 		{/if}
 	</div>
-	{#if ic.selectedIcon}
-		<div class="details-container">
-			<IconDetails />
-		</div>
-	{/if}
+	<div class="details-container">
+		<IconDetails />
+	</div>
 </div>
 
 <style lang="scss">
@@ -282,6 +290,7 @@ $effect(() => {
 		top: 0.5rem;
 		align-self: flex-start;
 	}
+
 	@media screen and (max-width: 600px) {
 		.details-container {
 			position: fixed;

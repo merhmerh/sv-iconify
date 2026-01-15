@@ -18,43 +18,51 @@ const ic = getIconListState();
 		</button>
 	</div>
 
-	<div class="icon-preview">
-		<Icon icon={ic.selectedIcon.iconName} width="40" />
-	</div>
+	{#if ic.selectedIcon}
+		<div class="icon-preview">
+			<Icon icon={ic.selectedIcon.iconName} width="40" />
+		</div>
 
-	<div class="info-item">
-		<div class="label">Icon Name</div>
-		<button class="value" onclick={() => navigator.clipboard.writeText(ic.selectedIcon.iconName)}>
-			<span>{ic.selectedIcon.iconName}</span>
-			<IconButton icon="lucide:copy" width="14" />
-		</button>
-	</div>
+		<div class="info-item">
+			<div class="label">Icon Name</div>
+			<button
+				class="value"
+				onclick={() => navigator.clipboard.writeText(ic.selectedIcon.iconName)}>
+				<span>{ic.selectedIcon.iconName}</span>
+				<IconButton icon="lucide:copy" width="14" />
+			</button>
+		</div>
 
-	<div class="info-item">
-		<div class="label">Icon Set</div>
-		<button
-			class="value"
-			onclick={() => navigator.clipboard.writeText(ic.selectedIcon.iconSetName)}>
-			<span>{ic.selectedIcon.iconSetName}</span>
-			<IconButton icon="lucide:copy" width="14" />
-		</button>
-	</div>
+		<div class="info-item">
+			<div class="label">Icon Set</div>
+			<button
+				class="value"
+				onclick={() => navigator.clipboard.writeText(ic.selectedIcon.iconSetName)}>
+				<span>{ic.selectedIcon.iconSetName}</span>
+				<IconButton icon="lucide:copy" width="14" />
+			</button>
+		</div>
 
-	<div class="svg-section">
-		<div class="label">SVG Code</div>
-		<textarea
-			readonly
-			value={ic.selectedIcon.svg}
-			aria-label="SVG code"
-			onclick={(e) => {
-				e.target.select();
-				navigator.clipboard.writeText(ic.selectedIcon.svg);
-			}}></textarea>
-		<button class="copy-svg">
-			<span>Copy</span>
-			<IconButton icon="lucide:copy" width="14" />
-		</button>
-	</div>
+		<div class="svg-section">
+			<div class="label">SVG Code</div>
+			<textarea
+				readonly
+				value={ic.selectedIcon.svg}
+				aria-label="SVG code"
+				onclick={(e) => {
+					e.target.select();
+					navigator.clipboard.writeText(ic.selectedIcon.svg);
+				}}></textarea>
+			<button class="copy-svg">
+				<span>Copy</span>
+				<IconButton icon="lucide:copy" width="14" />
+			</button>
+		</div>
+	{:else}
+		<div class="info-item">
+			<p>Select an icon from the list to view its details.</p>
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">

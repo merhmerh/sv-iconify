@@ -80,6 +80,15 @@ export class IconListState {
 				return 0;
 			}),
 		);
+		for (const [iconSet, iconNames] of Object.entries(iconResults)) {
+			iconResults[iconSet] = iconNames.map((iconName) => {
+				return {
+					iconName: iconName,
+					copyButton: null,
+				};
+			});
+		}
+		console.log(iconResults);
 		this.icons = iconResults;
 
 		localStorage.setItem("lastSearch", query);

@@ -21,6 +21,7 @@ let container = $state(null);
 let timeoutId = $state(null);
 let iconElement = $state(null);
 let isAwaiting = $state(false);
+let parent = null;
 
 let iconsWidth = $derived.by(() => {
 	if (typeof width == "number" || typeof width == "string") {
@@ -42,7 +43,7 @@ let iconsWidth = $derived.by(() => {
 });
 
 onMount(() => {
-	let parent = container.parentElement;
+	parent = container.parentElement;
 	// go up to 3 time
 	for (let i = 0; i < 3; i++) {
 		if (parent && parent.tagName !== "BUTTON") {
@@ -64,6 +65,16 @@ onMount(() => {
 		handleButtonClick(e);
 	});
 });
+
+export async function click() {
+	if (onclick.toString() !== "() => {}") {
+		return onclick();
+	}
+	if (parent) {
+		parent.click();
+		handleButtonClick();
+	}
+}
 
 async function handleButtonClick() {
 	if (clicked) {
