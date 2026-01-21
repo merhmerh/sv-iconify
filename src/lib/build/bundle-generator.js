@@ -36,7 +36,9 @@ function getAllIconsFromSet(p, iconset) {
 		};
 		const viewBox = Object.values(viewBoxObj).join(" ");
 		const svg = icon.body;
-		iconsMap[iconName] = { svg, viewBox };
+		const iconSetName = `${iconset}:${iconName}`;
+
+		iconsMap[iconSetName] = { svg, viewBox };
 	}
 	return iconsMap;
 }
@@ -90,6 +92,7 @@ export function createOptimizedBundle({ iconSets = [], icons = [] }, sourceDir, 
 		for (const iconset of iconSets) {
 			const p = path.join(sourceDir, `${iconset}.json`);
 			const icons = getAllIconsFromSet(p, iconset);
+			console.log(icons);
 			Object.assign(bundledIcons, icons);
 		}
 	}
