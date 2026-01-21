@@ -56,11 +56,11 @@ function getIcons(p, iconSet, iconNames) {
 	for (const name of iconNames) {
 		const key = `${iconSet}:${name}`;
 		let icon = json.icons?.[name];
+
 		if (!icon) {
 			const alias = json.aliases?.[name]?.parent;
 			if (!alias) console.error(`❌ Icon not found for "${chalk.red(key)}"`);
 			icon = json.icons?.[alias];
-			continue;
 		}
 
 		const svg = icon.body;
@@ -117,6 +117,7 @@ export function createOptimizedBundle({ iconSets = [], icons = [] }, sourceDir, 
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
+
 	fs.writeFileSync(outputPath, JSON.stringify(bundledIcons, null, 2), "utf-8");
 
 	console.log(`Created Bundle of ${Object.keys(bundledIcons).length} icons`);

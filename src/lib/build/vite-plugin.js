@@ -88,17 +88,18 @@ export function svIconify({
 
 			if (bundleGenerated) return; // Already generated
 
-			console.log("\n🔍 Scanning for icon usage...");
 			const scanPath = path.resolve(rootDir, scanDir);
 			const sourceDir = userSourceDir || findIconDataDir(rootDir);
 
 			const extractedIcons = await extractIconReferences(scanPath, sourceDir);
 
+			console.log(includes.icons);
 			const ref = {
 				iconSets: includes.iconSets,
 				icons: [...new Set([...includes.icons, ...extractedIcons])],
 			};
 
+			console.log(ref.icons);
 			const bundlePath = path.resolve(rootDir, outputPath);
 			createOptimizedBundle(ref, sourceDir, bundlePath);
 			bundleGenerated = true;
