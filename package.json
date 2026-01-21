@@ -43,6 +43,9 @@
 		"./vite": {
 			"types": "./dist/build/vite-plugin.d.ts",
 			"import": "./dist/build/vite-plugin.js"
+		},
+		"./build": {
+			"import": "./dist/build/index.js"
 		}
 	},
 	"peerDependencies": {

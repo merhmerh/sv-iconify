@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [
 		svIconify({
 			includes: {
-				iconSets: ["lucide"],
+				iconSets: [],
 				icons: [],
 			},
 		}),
