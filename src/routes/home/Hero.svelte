@@ -7,8 +7,8 @@ import Icon from "$lib/Icon.svelte";
 		<img src="main.png" draggable="false" alt="main" />
 	</div>
 	<p>
-		A tree-shakable Svelte icon component powered by Iconify <br />
-		Only bundle the icons you actually use
+		Iconify for Svelte using static code analysis <br />
+		Bundle only what you use, works even without internet access!
 	</p>
 	<a href="/icons" class="browse-btn">
 		<Icon icon="lucide:grid-2x2" width="18" rotate="45" />

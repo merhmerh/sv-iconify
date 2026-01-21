@@ -7,9 +7,9 @@
 [![npm version](https://img.shields.io/npm/v/sv-iconify?style=flat-square)](https://www.npmjs.com/package/sv-iconify)
 [![license](https://img.shields.io/npm/l/sv-iconify?style=flat-square)](https://github.com/merhmerh/sv-iconify/blob/main/LICENSE)
 
-A Tree-shakeable Iconify component for Svelte
+Iconify icons for Svelte
 
-Access all [Iconify](https://iconify.design/) icons in your SvelteKit project. Only bundling the icons you use for optimal performance.
+Access all [Iconify](https://iconify.design/) icons in your SvelteKit project. Uses static code analysis to detect icon usage and bundles only the icons you need, enabling offline access and minimal bundle sizes.
 
 ## Limitations
 
@@ -97,12 +97,12 @@ import { Icon } from "sv-iconify";
 
 ## How It Works
 
-The plugin scans your code for icon usage (e.g., `icon="mdi:home"`) and creates an optimized bundle:
+The plugin uses static code analysis to scan your source code for icon usage (e.g., `icon="mdi:home"`) and creates an optimized bundle:
 
-- **Development mode:** This library contains all icons and serves them on demand
-- **Production mode:** Bundle includes only the icons you use, optimized for size
+- **Development mode:** All icons are available and served on demand from the library
+- **Production mode:** Only the icons detected in your code are bundled, optimized for size and offline access
 
-If an icon can’t be loaded locally, it falls back to the Iconify API and fetches the icon over the network.
+If an icon can't be found in the bundle, it falls back to the Iconify API and fetches the icon over the network.
 
 ## Configuration
 
