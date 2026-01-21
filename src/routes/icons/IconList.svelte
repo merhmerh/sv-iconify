@@ -105,9 +105,11 @@ $effect(() => {
 			</div>
 		{/if}
 	</div>
-	<div class="details-container">
-		<IconDetails />
-	</div>
+	{#if ic.selectedIcon}
+		<div class="details-container">
+			<IconDetails />
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
